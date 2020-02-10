@@ -1,7 +1,5 @@
-# edit proj 2 code to read in the data and store it all
-# make validate modular call vlaidate return bool if good thn store
-# make file tags which has validate and store in it
-
+# Kirk Vasilas
+# python3.5
 
 def strip_line(ged_line):
     return ged_line.strip('\n').split(" ")
@@ -32,10 +30,6 @@ def validate(line):
     elif ((level == "2") and (tag in two_tags)):
         status = True
     return(status, tag, args)
-
-
-def store(d, curr_id, tag, args):
-    return 0
 
 
 def read_file(path):
