@@ -1,0 +1,34 @@
+###  Individuals  ###
+id = @I1@ | name = Aerys /Targaryen/
+id = @I2@ | name = Rhaella /Targaryen/
+id = @I3@ | name = Daenerys /Targaryen/
+id = @I4@ | name = Viserys /Targaryen/
+id = @I5@ | name = Rhaegar /Targaryen/
+id = @I6@ | name = Rhaenys /Targaryen/
+id = @I7@ | name = Aegon /Targaryen/
+id = @I8@ | name = Elia /Targaryen/
+id = @I9@ | name = Lyanna /Stark/
+id = @I10@ | name = Jon /Snow/
+id = @I11@ | name = Rickard /Stark/
+id = @I12@ | name = Lyarra /Stark/
+id = @I13@ | name = Brandon /Stark/
+id = @I14@ | name = Benjen /Stark/
+
+
+###  Families  ###
+
+Family = @F1@
+Husband => id = @I1@ | Name = Aerys /Targaryen/
+Wife => id = @I2@ | Name = Rhaella /Targaryen/
+
+Family = @F2@
+Husband => id = @I5@ | Name = Rhaegar /Targaryen/
+Wife => id = @I9@ | Name = Lyanna /Stark/
+
+Family = @F3@
+Husband => id = @I5@ | Name = Rhaegar /Targaryen/
+Wife => id = @I8@ | Name = Elia /Targaryen/
+
+Family = @F4@
+Husband => id = @I11@ | Name = Rickard /Stark/
+Wife => id = @I12@ | Name = Lyarra /Stark/

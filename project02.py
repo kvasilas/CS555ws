@@ -6,8 +6,6 @@
 def strip_line(ged_line):
     return ged_line.strip('\n').split(" ")
 
-
-
 def validate_tags(line):
     zero_tags = ["INDI",  "FAM",  "HEAD", "TRLR", "NOTE"]
     one_tags = ["NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "MARR", "HUSB", "WIFE", "CHIL", "DIV"]
@@ -36,9 +34,10 @@ def validate_tags(line):
     return "<-- " + level + "|" + tag + "|" + valid + "|" + args
 
 
-
 if __name__ == "__main__":
-    file = open('./family.ged')
+    #path = './family.ged'
+    path = './proj02test.ged'
+    file = open(path)
     ged_lines = file.readlines()
     for ged_line in ged_lines:
         print("--> " + ged_line.strip('\n'))
