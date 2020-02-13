@@ -74,6 +74,11 @@ def read_file(path):
                 date_type = tag
             if(tag == "HUSB" or tag == "WIFE"):
                 families[curr_id][tag]=args
+            if(tag == "CHIL"):
+                if( tag not in families[curr_id].keys() ):
+                    families[curr_id][tag] = [args]
+                else:
+                    families[curr_id][tag].append(args)
 
     file.close
     return(people, families)

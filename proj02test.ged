@@ -1,27 +1,38 @@
 0 NOTE all lines until the next note are all correct
 0 HEAD
 0 rn INDI
-1 NAME Rafa /Nadal/
+1 NAME Rafa /Brown/
 1 SEX M
 1 BIRT
 2 DATE 3 JUN 1986
 1 DEAT
 2 DATE 31 DEC 2099
 0 xp INDI
-1 NAME Mary /Pedro/
+1 NAME Mary /Brown/
 1 SEX F
 1 BIRT
 2 DATE 6 JUN 1990
 1 DEAT
-2 DATE 30 DEC 2089
+2 DATE 30 DEC 2050
+0 aa INDI
+1 NAME Antonio /Brown/
+1 SEX M
+1 BIRT
+2 DATE 9 MAR 2001
+0 cb INDI
+1 NAME Charlie /Brown/
+1 SEX M
+1 BIRT
+2 DATE 19 Jul 2005
 1 FAMC f1
 1 FAMS f2
 0 f2 FAM
 1 HUSB rn
 1 WIFE xp
 1 CHIL aa
+1 CHIL cb
 1 MARR 
-2 DATE 1 JUN 1960
+2 DATE 1 JUN 2000
 1 DIV
-2 DATE 1 JUN 1961
+2 DATE 6 JUN 2009
 0 TRLR
