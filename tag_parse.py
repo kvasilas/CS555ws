@@ -1,5 +1,7 @@
 # Kirk Vasilas
+# adapted from Ryan Tom
 # python3.5
+# to run call tag_parse.read_file('./proj02test.ged')
 
 def strip_line(ged_line):
     return ged_line.strip('\n').split(" ")
@@ -44,7 +46,6 @@ def read_file(path):
     families={}
     for ged_line in ged_lines:
         status, tag, args = validate(strip_line(ged_line))
-        #print(tag, args)
         if(status == True):
             if(tag == "INDI"):
                 curr_id = args
@@ -75,17 +76,20 @@ def read_file(path):
                 families[curr_id][tag]=args
 
     file.close
+    return(people, families)
+
+    #old do not delete its good reference for now
     # print(people, families, sep='\n')
     # print(people.keys())
     # print(people['rn'].keys())
-    print("\n###  Individuals  ###")
-    for key in people:
-        print("id =",people[key]['ID'], "| name =", people[key]['NAME'], sep=' ')
-    print("\n\n###  Families  ###")
-    for key in families:
-        print("\nFamily =",families[key]['ID'], sep=' ')
-        print("Husband => id =", families[key]['HUSB'],"| Name =",people[families[key]['HUSB']]['NAME'] )
-        print("Wife => id =", families[key]['WIFE'],"| Name =", people[families[key]['WIFE']]['NAME'])
+    # print("\n###  Individuals  ###")
+    # for key in people:
+    #     print("id =",people[key]['ID'], "| name =", people[key]['NAME'], sep=' ')
+    # print("\n\n###  Families  ###")
+    # for key in families:
+    #     print("\nFamily =",families[key]['ID'], sep=' ')
+    #     print("Husband => id =", families[key]['HUSB'],"| Name =",people[families[key]['HUSB']]['NAME'] )
+    #     print("Wife => id =", families[key]['WIFE'],"| Name =", people[families[key]['WIFE']]['NAME'])
 
 #read_file('./proj02test.ged')
-read_file('./targ.ged')
+#read_file('./targ.ged')
