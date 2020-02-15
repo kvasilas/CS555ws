@@ -11,7 +11,7 @@ def fiveLessBirths(people, families):   # Determines whether more than any five 
     isValid = True
     for related_children in children:   # iterate through each set of siblings
         dict_of_dates = {}
-        for child in related_children:   # iterate through each child among siblings, story each unique birthdate as key and iterating value for non unique date
+        for child in related_children:   # iterate through each child among siblings, storing each unique birthdate as key and iterating value for non unique date
             try:
                 dict_of_dates[people[child]['BIRT']] += 1
             except:
