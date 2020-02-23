@@ -61,11 +61,40 @@ def div_age():
 def check_birth_before_marr(key, people):
     if(people[key]['MARR_AGE'] < 0):
         people[key]['MARR_AGE'] = "INVALID"
-        print("ERROR: Invalid Marrage date, married before birth")
+        return("ERROR: Invalid Marrage date, married before birth")
     else:
-        print("Marrage date valid")
+        return("Marrage date valid")
 
 def store_ages(families, people):
     people = calc_ages(people)
     people = marr_and_div_ages(families, people)
     return people
+
+def less_than_one_fifty(key, people):
+    # Ticket US07 - Death should be less than 150 years after 
+    # birth for dead people, and current date should be less 
+    # than 150 years after birth for all living people
+    if(death_age(key, people) >= 150):
+        return "Death Age Invalid"
+    if(get_age(key, people) >= 150):
+        return "Current Age Invalid"
+    
+def marrige_after_fourteen(key,families, people):
+    # Ticket US10 - Marriage should be at least 14 years after birth 
+    # of both spouses (parents must be at least 14 years old)
+    if(people[families[key]['HUSB']]['MARR_AGE'] <= 14) or (people[families[key]['WIFE']]['MARR_AGE'] <= 14):
+        return "Marrige under the age of 14 is invalid"
+
+
+def mar_b4_death(key, people):
+    if(people[key]['MARR_AGE'] > people[key]['AGE']):
+        return False
+    else:
+        return True
+
+
+def div_b4_death(key, people):
+    if(people[key]['DIV_AGE'] > people[key]['AGE']):
+        return False
+    else:
+        return True
