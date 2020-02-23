@@ -2,11 +2,11 @@ from age import *
 
 def test_less_than_one_fifty(key, people):
     if (less_than_one_fifty(key, people) == "Death Age Invalid") or (less_than_one_fifty(key, people) == "Current Age Invalid"):
-        return"ERROR, less_than_one_fifty"
+        return "test_less_than_one_fifty passed"
 
 def test_marrige_after_fourteen(key, families, people):
     if (marrige_after_fourteen(key, families, people) == "Marrige under the age of 14 is invalid")
-        return "ERROR, marrige_after_fourteen"
+        return "marrige_after_fourteen passed"
 
 def test_birth_b4_marr(key, people):
     ans = check_birth_before_marr(key,people)
