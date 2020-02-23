@@ -21,9 +21,9 @@ def test_birth_b4_death(people):
             if('Death' in people[key].keys()):
                 if('AGE' in people[key].keys()):
                     if(people[key]['AGE'] < 0):
-                        yield("ERROR, Birth Before Death")
+                        yield(key+"ERROR, Birth Before Death")
                     else:
-                        yield("PASS Birth Before Death")
+                        yield(key+"PASS Birth Before Death")
 
 
 def test_mar_b4_death(key, people):
