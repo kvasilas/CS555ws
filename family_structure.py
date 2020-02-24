@@ -8,7 +8,10 @@ people, families = tag.read_file('./rtSprint1.ged')
 def fiveLessBirths(people, families):   # Determines whether more than five siblings were born on the same date
     children = []   # list which will store individual lists of children separated by family
     for id in families:
-        children.append(families[id]['CHIL'])
+        try:
+            children.append(families[id]['CHIL'])
+        except:
+            pass
     isValid = True
     for related_children in children:   # iterate through each set of siblings
         dict_of_dates = {}
@@ -29,9 +32,9 @@ def fifteenLessSiblings(families):   # Tests that each family has less than fift
     isValid = True
     for family in families:
         if len(families[family]["CHIL"]) > 14:
-            isValid = False
-    if not isValid:
-        return "A family contains more than fourteen siblings"
+                isValid = False
+        if not isValid:
+            return "A family contains more than fourteen siblings"
 
 
 def parents_not_too_old(people, family):
