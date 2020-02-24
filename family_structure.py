@@ -3,7 +3,7 @@
 import tag_parse as tag
 import age
 
-people, families = tag.read_file('./rtSprint1.ged')
+people, families = tag.read_file('./proj02test.ged')
 
 def fiveLessBirths(people, families):   # Determines whether more than five siblings were born on the same date
     children = []   # list which will store individual lists of children separated by family
@@ -63,3 +63,5 @@ def male_last_names_align(people, family):
         if (people[child]['SEX'] == 'M'):
             if (get_last_name(child,people) != male_ln):
                 return "ERROR: Male child's last name does not match father's - ID: " + child
+
+
