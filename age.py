@@ -48,13 +48,14 @@ def death_age(key, people): #by person
 def marr_and_div_ages(families, people): #runs on whole dictionary
     for key in families: 
         marr_date = datetime.strptime(families[key]['MARR'], '%d %b %Y')   
-        div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
+        if ('DIV' in people[families[key]['HUSB']].keys() or 'DIV' in people[families[key]['WIFE']].keys()):
+            div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
+            people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
+            people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
         #print(marr_date)
 
         people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-        people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
         people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-        people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
     return(people)
 
 def div_age():
@@ -82,10 +83,10 @@ def less_than_one_fifty(key, people):
     if(get_age(key, people) >= 150):
         return "Current Age Invalid"
     
-def marrige_after_fourteen(key,families, people):
+def marrige_after_fourteen(key, people):
     # Ticket US10 - Marriage should be at least 14 years after birth 
     # of both spouses (parents must be at least 14 years old)
-    if(people[families[key]['HUSB']]['MARR_AGE'] <= 14) or (people[families[key]['WIFE']]['MARR_AGE'] <= 14):
+    if(people[key]['MARR_AGE'] <= 14):
         return "Marrige under the age of 14 is invalid"
 
 
