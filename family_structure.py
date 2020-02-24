@@ -3,8 +3,6 @@
 import tag_parse as tag
 import age
 
-people, families = tag.read_file('./proj02test.ged')
-
 def fiveLessBirths(people, families):   # Determines whether more than five siblings were born on the same date
     children = []   # list which will store individual lists of children separated by family
     for id in families:
@@ -37,7 +35,7 @@ def fifteenLessSiblings(families):   # Tests that each family has less than fift
             return "A family contains more than fourteen siblings"
 
 
-def parents_not_too_old(people, family):
+def parents_not_too_old(people, family, families):
     motherid = families[family]['WIFE']
     fatherid = families[family]['HUSB']
     error_str = ""
@@ -57,7 +55,7 @@ def get_last_name(key, people):
     return name[1:]
 
 
-def male_last_names_align(people, family):
+def male_last_names_align(people, family, families):
     male_ln = get_last_name(families[family]['HUSB'],people)
     for child in families[family]['CHIL']:
         if (people[child]['SEX'] == 'M'):

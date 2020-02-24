@@ -24,6 +24,6 @@ print(family_structure_test.fifteenLessSiblingsTest(familiesJD))
 #RT User Stories
 people, families = tag.read_file('./rtSprint1.ged')
 people = age.store_ages(families, people)
-print(family_structure_test.parentsNotTooOldTest(people, '@F1@'))
-print(family_structure_test.maleLastNameTest(people, '@F1@'))
+print(family_structure_test.parentsNotTooOldTest(people, '@F1@', families))
+print(family_structure_test.maleLastNameTest(people, '@F1@', families))
 
