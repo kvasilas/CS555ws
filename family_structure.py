@@ -40,9 +40,9 @@ def parents_not_too_old(people, families):
         fatherid = family['HUSB']
         for child in family['CHIL']:
             if (age.get_age(motherid, people) - age.get_age(child, people) >= 60):
-                return "Mother is too old"
+                return "ERROR: Mother is too old - ID: " + motherid
             if (age.get_age(fatherid, people) - age.get_age(child, people) >= 80):
-                return "Father is too old"
+                return "ERROR: Father is too old - ID: " + fatherid
 
 
 def get_last_name(key, people):
@@ -58,6 +58,6 @@ def male_last_names_align(people, families):
         for child in family['CHIL']:
             if (people[child]['SEX'] == 'M'):
                 if (get_last_name(child,people) != male_ln):
-                    return "Male child's last name does not match father's"
+                    return "ERROR: Male child's last name does not match father's - ID: " + child
 
 
