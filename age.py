@@ -11,6 +11,7 @@ def calc_ages(people): #runs on whole dictionary
             else:
                 #if dead age is their last living age people[key]['AGE']
                 age = death_age(key, people)
+                people[key]['AGE'] = age
                 if(age < 0): #death before birth
                     print("ERROR: Invalid death date, death before birth")
                 else:
@@ -29,24 +30,26 @@ def get_age(key, people): #by person
 
 
 def death_age(key, people): #by person
-    today = datetime.now()
     if('DEAT' in people[key].keys()):
-        print(people[key]['DEAT'])
-        dday = datetime.strptime(people[key]['DEAT'], '%d %b %Y')
-        people[key]['DEAT'] = datetime.strptime(people[key]['DEAT'], '%d %b %Y')
-        bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
-        people[key]['BIRT'] = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
-        d_age = int((dday-bday).days/365.2425)
+        # print(people[key]['DEAT'])
+        # print(key, type(people[key]['DEAT']), people[key]['DEAT'])
+        if(type(people[key]['DEAT']) == str):
+            dday = datetime.strptime(people[key]['DEAT'], '%d %b %Y')
+            people[key]['DEAT'] = datetime.strptime(people[key]['DEAT'], '%d %b %Y')
+            bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
+            people[key]['BIRT'] = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
+            d_age = int((dday-bday).days/365.2425)
+        else:
+            d_age = int(
+                (people[key]['DEAT'] - people[key]['BIRT']).days/365.2425)
         return(d_age)
         
 
 def marr_and_div_ages(families, people): #runs on whole dictionary
     for key in families: 
-        marr_date = datetime.strptime(families[key]['MARR'], '%d %b %Y')
-        
+        marr_date = datetime.strptime(families[key]['MARR'], '%d %b %Y')   
         div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
-        print(marr_date)
-
+        #print(marr_date)
 
         people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
         people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
