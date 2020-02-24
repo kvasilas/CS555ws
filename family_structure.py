@@ -1,6 +1,7 @@
 # A file for all tests that depend on family structure
 
 import tag_parse as tag
+import age
 
 people, families = tag.read_file('./proj02test.ged')
 
@@ -31,3 +32,32 @@ def fifteenLessSiblings(families):   # Tests that each family has less than fift
             isValid = False
     if not isValid:
         return "A family contains more than fourteen siblings"
+
+
+def parents_not_too_old(people, families):
+    for family in families:
+        motherid = family['WIFE']
+        fatherid = family['HUSB']
+        for child in family['CHIL']:
+            if (age.get_age(motherid, people) - age.get_age(child, people) >= 60):
+                return "Mother is too old"
+            if (age.get_age(fatherid, people) - age.get_age(child, people) >= 80):
+                return "Father is too old"
+
+
+def get_last_name(key, people):
+    name = people[key]['NAME'][:-1]
+    while (name[0] != "/"):
+        name = name[1:]
+    return name[1:]
+
+
+def male_last_names_align(people, families):
+    for family in families:
+        male_ln = get_last_name(family['HUSB'],people)
+        for child in family['CHIL']:
+            if (people[child]['SEX'] == 'M'):
+                if (get_last_name(child,people) != male_ln):
+                    return "Male child's last name does not match father's"
+
+
