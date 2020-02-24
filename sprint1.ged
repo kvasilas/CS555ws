@@ -7,6 +7,7 @@
 2 DATE 3 JUN 1940
 1 DEAT
 2 DATE 31 DEC 2010 
+
 0 xp INDI
 1 NAME Mary /Brown/
 1 SEX F
@@ -14,6 +15,8 @@
 2 DATE 6 JUN 1950
 1 DEAT
 2 DATE 30 DEC 1945
+
+
 1 FAMC f1
 1 FAMS f2
 0 f2 FAM
@@ -24,6 +27,8 @@
 2 DATE 1 JUN 1935
 1 DIV
 2 DATE 6 JUN 2009
+
+
 0 qa INDI
 1 NAME Tim /Brown/
 1 SEX M
@@ -137,7 +142,6 @@
 1 CHIL qn
 1 CHIL qo
 1 CHIL qp
-0 TRLR
 0 wd INDI
 1 NAME Wonton /Don/
 2 GIVN Wonton
