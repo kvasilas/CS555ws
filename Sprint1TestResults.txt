@@ -1,0 +1,9 @@
+ERROR: Invalid death date, death before birth
+ERROR: Invalid Marrage date, married before birth
+<generator object test_birth_b4_death at 0x0165AF60>
+test_less_than_one_fifty passed
+marrige_after_fourteen passed
+Error, five or more births
+Error, fifteen or more siblings in a family
+ERROR: Father is too old - ID: @I3@ | Mother is too old - ID: @I4@ | Father is too old - ID: @I4@ | 
+ERROR: Male child's last name does not match father's - ID: @I4@

@@ -5,7 +5,7 @@ def test_less_than_one_fifty(key, people):
         return "test_less_than_one_fifty passed"
 
 def test_marrige_after_fourteen(key, people):
-    if (marrige_after_fourteen(key, people) == "Marrige under the age of 14 is invalid"):
+    if (marrige_after_fourteen(key,people) == "Marrige under the age of 14 is invalid"):
         return "marrige_after_fourteen passed"
 
 def test_birth_b4_marr(key, people):

@@ -46,16 +46,17 @@ def death_age(key, people): #by person
         
 
 def marr_and_div_ages(families, people): #runs on whole dictionary
-    for key in families: 
-        marr_date = datetime.strptime(families[key]['MARR'], '%d %b %Y')   
-        if ('DIV' in people[families[key]['HUSB']].keys() or 'DIV' in people[families[key]['WIFE']].keys()):
-            div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
-            people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-            people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-        #print(marr_date)
+    for key in families:
+        if ('MARR' in families[key]):
+            marr_date = datetime.strptime(families[key]['MARR'], '%d %b %Y')
+            if ('DIV' in people[families[key]['HUSB']].keys() or 'DIV' in people[families[key]['WIFE']].keys()):
+                div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
+                people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
+                people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
+            #print(marr_date)
 
-        people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-        people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
+            people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
+            people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
     return(people)
 
 def div_age():

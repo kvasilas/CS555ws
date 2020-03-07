@@ -8,13 +8,13 @@ def fifteenLessSiblingsTest(families):
     if family_structure.fifteenLessSiblings(families) == "A family contains more than fourteen siblings":
         return "Error, fifteen or more siblings in a family"
 
-def parentsNotTooOldTest(people, families):
-    ans = family_structure.parents_not_too_old(people, families)
+def parentsNotTooOldTest(people, family, families):
+    ans = family_structure.parents_not_too_old(people, family, families)
     if ("ERROR" in ans):
         return ans
 
-def maleLastNameTest(people, families):
-    ans = family_structure.male_last_names_align(people, families)
+def maleLastNameTest(people, family, families):
+    ans = family_structure.male_last_names_align(people, family, families)
     if ("ERROR" in ans):
         return ans
 
