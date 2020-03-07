@@ -40,4 +40,6 @@ def test_div_b4_death(key, people):
         return("Dicorce and death dates valid")
 
 def test_date_before_current(people, families):
-    print(datesBeforeCurrent(people, families))
+    result = datesBeforeCurrent(people, families)
+    if "ERROR" in result:
+        print(result)
