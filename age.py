@@ -102,3 +102,27 @@ def div_b4_death(key, people):
         return False
     else:
         return True
+
+def convertFamiliesToDT(families):   # Converts each family date to datetime
+    for family in families:
+        families[family]['MARR'] = datetime.strptime(families[family]['MARR'], '%d %b %Y')
+        if 'DIV' in families[family]:
+            families[family]['DIV'] = datetime.strptime(families[family]['DIV'], '%d %b %Y')
+    return families
+
+def datesBeforeCurrent(people, families):
+    today = datetime.now()
+    people = calc_ages(people)
+    families = convertFamiliesToDT(families)
+    for person in people:
+        if people[person]['BIRT'] > today:
+            return "ERROR: {} has a birthday after today".format(people[person]["NAME"])
+        if "DEAT" in people[person]:
+            if people[person]["DEAT"] > today:
+                return "ERROR: {} has died after today".format(people[person]["NAME"])
+    for family in families:
+        if families[family]['MARR'] > today:
+            return "ERROR: {} family has a marriage after today".format(family)
+        if "DIV" in families[family]:
+            if families[family]["DIV"] > today:
+                return "ERROR: {} family has a divorce after today".format(family)

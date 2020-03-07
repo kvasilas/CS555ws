@@ -4,8 +4,8 @@ def test_less_than_one_fifty(key, people):
     if (less_than_one_fifty(key, people) == "Death Age Invalid") or (less_than_one_fifty(key, people) == "Current Age Invalid"):
         return "test_less_than_one_fifty passed"
 
-def test_marrige_after_fourteen(key, families, people):
-    if (marrige_after_fourteen(key, families, people) == "Marrige under the age of 14 is invalid"):
+def test_marrige_after_fourteen(key, people):
+    if (marrige_after_fourteen(key, people) == "Marrige under the age of 14 is invalid"):
         return "marrige_after_fourteen passed"
 
 def test_birth_b4_marr(key, people):
@@ -38,3 +38,6 @@ def test_div_b4_death(key, people):
         return("ERROR: Divorced before death")
     else:
         return("Dicorce and death dates valid")
+
+def test_date_before_current(people, families):
+    print(datesBeforeCurrent(people, families))

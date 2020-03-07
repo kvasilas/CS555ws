@@ -17,3 +17,8 @@ def maleLastNameTest(people, families):
     ans = family_structure.male_last_names_align(people, families)
     if ("ERROR" in ans):
         return ans
+
+def noChildMarryTest(families):
+    ans = family_structure.noChildMarry(families)
+    if ("ERROR" in ans):
+        return ans

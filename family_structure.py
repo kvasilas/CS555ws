@@ -64,3 +64,45 @@ def male_last_names_align(people, families):
                     return "ERROR: Male child's last name does not match father's - ID: " + child
 
 
+def noChildMarry(families):
+    father_dict = getFatherChildren(families)
+    mother_dict = getMotherChildren(families)
+
+    for family in families:
+        wife = families[family]["WIFE"]
+        husband = families[family]['HUSB']
+
+        try:
+            if husband in mother_dict[wife]:
+                return "ERROR: A mother is married to her child"
+        except:
+            pass
+        try:
+            if wife in father_dict[husband]:
+                return "ERROR: A father is married to his child"
+        except:
+            pass
+
+    return ""
+
+def getFatherChildren(families):   # Returns a dictionary with key being a father and value being list of their children
+    fathers = {}
+    for family in families:
+        if 'HUSB' not in families[family] or 'CHIL' not in families[family]:
+            continue
+        if families[family]['HUSB'] in fathers:
+            fathers[families[family]["HUSB"]].append(families[family]["CHIL"])
+        else:
+            fathers[families[family]["HUSB"]] = families[family]["CHIL"]
+    return fathers
+
+def getMotherChildren(families):
+    mothers = {}
+    for family in families:
+        if 'WIFE' not in families[family] or 'CHIL' not in families[family]:
+            continue
+        if families[family]['WIFE'] in mothers:
+            mothers[families[family]["WIFE"]].append(families[family]["CHIL"])
+        else:
+            mothers[families[family]["WIFE"]] = families[family]["CHIL"]
+    return mothers
