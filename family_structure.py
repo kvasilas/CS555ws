@@ -2,6 +2,8 @@
 
 import tag_parse as tag
 import age
+from collections import defaultdict 
+
 
 def fiveLessBirths(people, families):   # Determines whether more than five siblings were born on the same date
     children = []   # list which will store individual lists of children separated by family
@@ -105,3 +107,35 @@ def getMotherChildren(families):
         else:
             mothers[families[family]["WIFE"]] = families[family]["CHIL"]
     return mothers
+
+def uniqueIndividualIDs(people):
+    bv = defaultdict(int)
+    for individual in people:
+        print(people[individual]['ID'])
+        bv[people[individual]['ID']] += 1 
+    for i in bv:
+        if bv[i] > 1:
+            print("Individual ID is not Unique: " + i)
+            return ("ERROR: Individual ID is not unique " + i)
+    return "All ID's are unique"
+
+
+def uniqueFamilyIDs(families):
+    bv = defaultdict(int)
+    for family in families:
+        print(families[family]['ID'])
+        bv[families[family]['ID']] += 1 
+    for i in bv:
+        if bv[i] > 1:
+            print("Family ID is not Unique: " + i)
+            return ("ERROR: Family ID is not unique " + i)
+    return "All Family ID's are unique"
+
+def listDeceased(people):
+    dead_people = {}
+    for person in people:
+        if('DEAT' in people[person].keys()):
+            dead_people[people[person]['ID']] = people[person]['NAME']
+        else:
+            continue
+    return dead_people

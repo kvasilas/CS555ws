@@ -22,3 +22,24 @@ def noChildMarryTest(families):
     ans = family_structure.noChildMarry(families)
     if ("ERROR" in ans):
         return ans
+
+def uniqueIndividualIDsTest(people):
+    result = family_structure.uniqueIndividualIDs(people)
+    if ("ERROR" in result):
+        return result
+    else:
+        return "All Individual ID's are unique"
+
+def uniqueFamilyIDsTest(families):
+    result = family_structure.uniqueFamilyIDs(families)
+    if ("ERROR" in result):
+        return result
+    else:
+        return "All Family ID's are unique"
+
+def listDeceasedTest(people):
+    result = family_structure.listDeceased(people)
+    if ("ERROR" in result):
+        return result
+    else:
+        return "Here are all the dead people: " + str(result)
