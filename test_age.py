@@ -28,7 +28,7 @@ def test_birth_b4_death(people):
 
 def test_mar_b4_death(key, people):
     if(mar_b4_death(key, people) == False):
-        return("ERROR: Death before mirrage")
+        return("ERROR: Death before mairrage")
     else:
         return("Mirrage and death dates valid")
 
