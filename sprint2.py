@@ -22,3 +22,7 @@ print(listDeceasedTest(people))
 
 
 #RT User Stories
+people, families = tag.read_file('./rtSprint2.ged')
+people = age.store_ages(families, people)
+print(noSiblingMarriageTest(families))
+print(correctGenderTest(families, people))
