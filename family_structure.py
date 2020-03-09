@@ -75,12 +75,12 @@ def noChildMarry(families):
 
         try:
             if husband in mother_dict[wife]:
-                return "ERROR: A mother is married to her child"
+                return "ERROR: FAMILY: US17 A mother ({}) is married to her child ({})".format(wife, husband)
         except:
             pass
         try:
             if wife in father_dict[husband]:
-                return "ERROR: A father is married to his child"
+                return "ERROR: FAMILY: US17 A father ({}) is married to his child ({})".format(husband, wife)
         except:
             pass
 
