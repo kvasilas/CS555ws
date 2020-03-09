@@ -5,7 +5,10 @@ def calc_ages(people): #runs on whole dictionary
     for key in people:
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
-                bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
+                try:
+                    bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
+                except:
+                    exit("ERROR: FAMILY: US22: Family ID is not unique")
                 people[key]['BIRT'] = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
                 people[key]['AGE'] = int((today - bday).days/365.2425)
             else:
@@ -59,9 +62,15 @@ def marr_and_div_ages(families, people): #runs on whole dictionary
             #     people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
             #     people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
             #print(marr_date)
+            try:
+                people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
+            except:
+                exit("ERROR: INDIVIDUAL: US22: ID is not unique ")
 
-            people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-            people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
+            try:
+                people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
+            except:
+                exit("ERROR: INDIVIDUAL: US22: Individual ID is not unique ")
     return(people)
 #HERE
 def div_age():
