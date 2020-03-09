@@ -17,7 +17,10 @@ def pretty_print_people(people):
         else:
             gender = 'NA'
         if ('BIRT' in people[p]):
-            birthday = "" + str(people[p]['BIRT'].year) + "-" + str(people[p]['BIRT'].month) + "-" + str(people[p]['BIRT'].day)
+            if (type(people[p]['BIRT']) == str):
+                birthday = people[p]['BIRT']
+            else:
+                birthday = "" + str(people[p]['BIRT'].year) + "-" + str(people[p]['BIRT'].month) + "-" + str(people[p]['BIRT'].day)
         else:
             birthday = 'NA'
         if ('AGE' in people[p]):
@@ -25,7 +28,10 @@ def pretty_print_people(people):
         else:
             age = 'NA'
         if ('DEAT' in people[p]):
-            death = "" + str(people[p]['DEAT'].year) + "-" + str(people[p]['DEAT'].month) + "-" + str(people[p]['DEAT'].day)
+            if (type(people[p]['DEAT']) == str):
+                death = people[p]['DEAT']
+            else:
+                death = "" + str(people[p]['DEAT'].year) + "-" + str(people[p]['DEAT'].month) + "-" + str(people[p]['DEAT'].day)
             alive = "False"
         else:
             death = 'NA'
@@ -33,16 +39,21 @@ def pretty_print_people(people):
         print("ID: " + id + " | Name: " + name + " | Gender: " + gender + " | Birthday: " + birthday + " | Age: " + str(age) + " | Alive: " + alive + " | Death: " + death)
 
 def pretty_print_families(families, people):
-    print()
     print("Families")
     for f in families:
         id = families[f]['ID']
         if ('MARR' in families[f]):
-            married = "" + str(families[f]['MARR'].year) + "-" + str(families[f]['MARR'].month) + "-" + str(families[f]['MARR'].day)
+            if (type(families[f]['MARR']) == str):
+                married = families[f]['MARR']
+            else:
+                married = "" + str(families[f]['MARR'].year) + "-" + str(families[f]['MARR'].month) + "-" + str(families[f]['MARR'].day)
         else:
             married = 'NA'
         if ('DIV' in families[f]):
-            divorced = "" + str(families[f]['DIV'].year) + "-" + str(families[f]['DIV'].month) + "-" + str(families[f]['DIV'].day)
+            if (type(families[f]['DIV']) == str):
+                divorced = families[f]['DIV']
+            else:
+                divorced = "" + str(families[f]['DIV'].year) + "-" + str(families[f]['DIV'].month) + "-" + str(families[f]['DIV'].day)
         else:
             divorced = 'NA'
         if ('HUSB' in families[f]):
@@ -67,12 +78,17 @@ def pretty_print_families(families, people):
 #KV User Stories
 people, families = tag.read_file('./kvSprint2.ged')
 people = age.store_ages(families, people)
+pretty_print_people(people)
+pretty_print_families(families, people)
 print(test_age.test_mar_b4_death(people))
 print(test_age.test_div_b4_death(people))
 
 
 #JD User Stories
 people, families = tag.read_file('./jd_sprint2.ged')
+#people = age.store_ages(families, people)
+pretty_print_people(people)
+pretty_print_families(families, people)
 print(noChildMarryTest(families))
 print(test_age.test_date_before_current(people, families))
 
@@ -81,7 +97,6 @@ people, families = tag.read_file('./rtSprint2.ged')
 people = age.store_ages(families, people)
 pretty_print_people(people)
 pretty_print_families(families, people)
-print()
 noSiblingMarriageTest(families)
 correctGenderTest(families, people)
 
@@ -89,6 +104,10 @@ correctGenderTest(families, people)
 #JT User Stories
 people, families = tag.read_file('./kvSprint2.ged')
 people = age.store_ages(families, people)
+
+pretty_print_people(people)
+pretty_print_families(families, people)
+
 print(listDeceasedTest(people))
 
 peopleFam, familiesFam = tag.read_file('./jt_sprint2Fam.ged')
