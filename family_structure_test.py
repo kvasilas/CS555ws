@@ -45,7 +45,11 @@ def listDeceasedTest(people):
         return "Here are all the dead people: " + str(result)
 
 def noSiblingMarriageTest(families):
-    return family_structure.noSiblingMarriage(families)
+    errors = family_structure.noSiblingMarriage(families)
+    for x in errors:
+        print(x)
 
 def correctGenderTest(families, people):
-    return family_structure.correctGender(families, people)
+    errors = family_structure.correctGender(families, people)
+    for x in errors:
+        print(x)

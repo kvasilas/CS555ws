@@ -26,5 +26,5 @@ print(test_age.test_date_before_current(people, families))
 #RT User Stories
 people, families = tag.read_file('./rtSprint2.ged')
 people = age.store_ages(families, people)
-print(noSiblingMarriageTest(families))
-print(correctGenderTest(families, people))
+noSiblingMarriageTest(families)
+correctGenderTest(families, people)
