@@ -75,12 +75,12 @@ def noChildMarry(families):
 
         try:
             if husband in mother_dict[wife]:
-                return "ERROR: A mother is married to her child"
+                return "ERROR: FAMILY: US17 A mother ({}) is married to her child ({})".format(wife, husband)
         except:
             pass
         try:
             if wife in father_dict[husband]:
-                return "ERROR: A father is married to his child"
+                return "ERROR: FAMILY: US17 A father ({}) is married to his child ({})".format(husband, wife)
         except:
             pass
 
@@ -115,8 +115,7 @@ def uniqueIndividualIDs(people):
         bv[people[individual]['ID']] += 1 
     for i in bv:
         if bv[i] > 1:
-            print("Individual ID is not Unique: " + i)
-            return ("ERROR: Individual ID is not unique " + i)
+            return ("ERROR: INDIVIDUAL: US22: ID is not unique " + i)
     return "All ID's are unique"
 
 
@@ -127,8 +126,7 @@ def uniqueFamilyIDs(families):
         bv[families[family]['ID']] += 1 
     for i in bv:
         if bv[i] > 1:
-            print("Family ID is not Unique: " + i)
-            return ("ERROR: Family ID is not unique " + i)
+            return ("ERROR: FAMILIY: US22: Family ID is not unique " + i)
     return "All Family ID's are unique"
 
 def listDeceased(people):

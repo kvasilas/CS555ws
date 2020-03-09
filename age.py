@@ -5,7 +5,10 @@ def calc_ages(people): #runs on whole dictionary
     for key in people:
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
-                bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
+                try:
+                    bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
+                except:
+                    exit("ERROR: FAMILY: US22: Family ID is not unique")
                 people[key]['BIRT'] = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
                 people[key]['AGE'] = int((today - bday).days/365.2425)
             else:
@@ -59,9 +62,15 @@ def marr_and_div_ages(families, people): #runs on whole dictionary
             #     people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
             #     people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
             #print(marr_date)
+            try:
+                people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
+            except:
+                exit("ERROR: INDIVIDUAL: US22: ID is not unique ")
 
-            people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-            people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
+            try:
+                people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
+            except:
+                exit("ERROR: INDIVIDUAL: US22: Individual ID is not unique ")
     return(people)
 #HERE
 def div_age():
@@ -98,16 +107,16 @@ def marrige_after_fourteen(key, people):
 
 def mar_b4_death(key, people):
     if(people[key]['MARR_AGE'] > people[key]['AGE']):
-        return False
+        return "ERROR: INDIVIDUAL: US05 Person '{}' was married after their death".format(key)
     else:
-        return True
+        return ""
 
 
 def div_b4_death(key, people):
     if(people[key]['DIV_AGE'] > people[key]['AGE']):
-        return False
+        return "ERROR: INDIVIDUAL: US06 Person '{}' was divorced after their death ".format(key)
     else:
-        return True
+        return ""
 
 def convertFamiliesToDT(families):   # Converts each family date to datetime
     for family in families:
@@ -122,13 +131,13 @@ def datesBeforeCurrent(people, families):
     families = convertFamiliesToDT(families)
     for person in people:
         if people[person]['BIRT'] > today:
-            return "ERROR: {} has a birthday after today".format(people[person]["NAME"])
+            return "ERROR: INDIVIDUAL: US01 {} has a birthday ({}) after today".format(person, people[person]['BIRT'])
         if "DEAT" in people[person]:
             if people[person]["DEAT"] > today:
-                return "ERROR: {} has died after today".format(people[person]["NAME"])
+                return "ERROR: INDIVIDUAL: US01 {} has died ({}) after today".format(person, people[person]['DEAT'])
     for family in families:
         if families[family]['MARR'] > today:
-            return "ERROR: {} family has a marriage after today".format(family)
+            return "ERROR: FAMILY: US01 {} family has a marriage ({}) after today".format(family, families[family]['MARR'])
         if "DIV" in families[family]:
             if families[family]["DIV"] > today:
-                return "ERROR: {} family has a divorce after today".format(family)
+                return "ERROR: FAMILY: US01 {} family has a divorce ({}) after today".format(family, families[family]['DIV'])
