@@ -12,9 +12,16 @@ print(test_age.test_div_b4_death(people))
 
 
 #JD User Stories
-
+people, families = tag.read_file('./jd_sprint2.ged')
+print(noChildMarryTest(families))
+print(test_age.test_date_before_current(people, families))
 
 #RT User Stories
+people, families = tag.read_file('./rtSprint2.ged')
+people = age.store_ages(families, people)
+noSiblingMarriageTest(families)
+correctGenderTest(families, people)
+
 
 #JT User Stories
 people, families = tag.read_file('./kvSprint2.ged')
