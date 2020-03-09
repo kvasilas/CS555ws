@@ -137,3 +137,25 @@ def listDeceased(people):
         else:
             continue
     return dead_people
+
+def noSiblingMarriage(families):
+    errors = []
+    for family in families:
+        husbandID = families[family]['HUSB']
+        wifeID = families[family]['WIFE']
+        for fam in families:
+            if 'CHIL' in families[fam]:
+                if (husbandID in families[fam]['CHIL'] and wifeID in families[fam]['CHIL']):
+                    errors.append("ERROR: FAMILY: US18: " + husbandID + " & " + wifeID + ": Siblings cannot be married")
+    return errors
+
+def correctGender(families, people):
+    errors = []
+    for family in families:
+        husbandID = families[family]['HUSB']
+        wifeID = families[family]['WIFE']
+        if (people[husbandID]['SEX'] != 'M'):
+            errors.append("ERROR: FAMILY: US21: " + husbandID + ": Gender of Father is Female")
+        if (people[wifeID]['SEX'] != 'F'):
+            errors.append("ERROR: FAMILY: US21: " + wifeID + ": Gender of Mother is Male")
+    return errors
