@@ -26,18 +26,18 @@ def test_birth_b4_death(people):
                         yield(key+"PASS Birth Before Death")
 
 
-def test_mar_b4_death(key, people):
-    if(mar_b4_death(key, people) == False):
-        return("ERROR: Death before mairrage")
-    else:
-        return("Mirrage and death dates valid")
+def test_mar_b4_death(people):
+    for key in people:
+        output = mar_b4_death(key, people)
+        if("ERROR" in output):
+            return output
 
 
-def test_div_b4_death(key, people):
-    if(div_b4_death(key, people) == False):
-        return("ERROR: Divorced before death")
-    else:
-        return("Dicorce and death dates valid")
+def test_div_b4_death(people):
+    for key in people:
+        output = div_b4_death(key, people)
+        if("ERROR" in output):
+            return output
 
 def test_date_before_current(people, families):
     result = datesBeforeCurrent(people, families)
