@@ -159,3 +159,6 @@ def correctGender(families, people):
         if (people[wifeID]['SEX'] != 'F'):
             errors.append("ERROR: FAMILY: US21: " + wifeID + ": Gender of Mother is Male")
     return errors
+
+def uniqueFam(families):
+    print(families)
