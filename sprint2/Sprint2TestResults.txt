@@ -1,0 +1,39 @@
+People
+ID: aa | Name: Alex /Alexman/ | Gender: M | Birthday: 1940-6-3 | Age: 79 | Alive: True | Death: NA
+ID: xp | Name: Mary /Brown/ | Gender: F | Birthday: 1950-6-6 | Age: 49 | Alive: False | Death: 2000-4-12
+Families
+ID: f2 | Married: 1 JUN 2002 | Divorced: 6 JUN 2009 | Husband ID: aa | Husband Name: Alex /Alexman/ | Wife ID: xp | Wife Name: Mary /Brown/ | Children: None
+ERROR: INDIVIDUAL: US05 Person 'xp' was married after their death
+ERROR: INDIVIDUAL: US06 Person 'xp' was divorced after their death 
+
+People
+ID: @I1@ | Name: Wonton /Don/ | Gender: M | Birthday: 17 AUG 1840 | Age: NA | Alive: False | Death: 16 JUL 2019
+ID: @I2@ | Name: Hoonton /Don/ | Gender: F | Birthday: 12 MAY 1845 | Age: NA | Alive: True | Death: NA
+ID: @I3@ | Name: Timantho /Don/ | Gender: M | Birthday: 17 MAY 1854 | Age: NA | Alive: True | Death: NA
+Families
+ID: @F1@ | Married: 16 MAY 1850 | Divorced: NA | Husband ID: @I1@ | Husband Name: Wonton /Don/ | Wife ID: @I2@ | Wife Name: Hoonton /Don/ | Children: ['@I3@']
+ID: @F2@ | Married: 20 May 2050 | Divorced: NA | Husband ID: @I3@ | Husband Name: Timantho /Don/ | Wife ID: @I2@ | Wife Name: Hoonton /Don/ | Children: None
+ERROR: FAMILY: US17 A mother (@I2@) is married to her child (@I3@)
+ERROR: FAMILY: US01 @F2@ family has a marriage (2050-05-20 00:00:00) after today
+
+People
+ID: @I1@ | Name: John /Brown/ | Gender: F | Birthday: 1970-4-1 | Age: 49 | Alive: True | Death: NA
+ID: @I2@ | Name: Jane /Brown/ | Gender: M | Birthday: 1970-3-1 | Age: 50 | Alive: True | Death: NA
+ID: @I3@ | Name: Joe /Brown/ | Gender: M | Birthday: 1995-5-1 | Age: 24 | Alive: True | Death: NA
+ID: @I4@ | Name: Jess /Brown/ | Gender: F | Birthday: 2000-10-1 | Age: 19 | Alive: True | Death: NA
+Families
+ID: @F1@ | Married: NA | Divorced: NA | Husband ID: @I1@ | Husband Name: John /Brown/ | Wife ID: @I2@ | Wife Name: Jane /Brown/ | Children: ['@I3@', '@I4@']
+ID: @F2@ | Married: NA | Divorced: NA | Husband ID: @I3@ | Husband Name: Joe /Brown/ | Wife ID: @I4@ | Wife Name: Jess /Brown/ | Children: None
+ERROR: FAMILY: US18: @I3@ & @I4@: Siblings cannot be married
+ERROR: FAMILY: US21: @I1@: Gender of Father is Female
+ERROR: FAMILY: US21: @I2@: Gender of Mother is Male
+ERROR: INDIVIDUAL: US22: ID is not unique 
+
+People
+ID: aa | Name: Alex /Alexman/ | Gender: M | Birthday: 1940-6-3 | Age: 79 | Alive: True | Death: NA
+ID: xp | Name: Mary /Brown/ | Gender: F | Birthday: 1950-6-6 | Age: 49 | Alive: False | Death: 2000-4-12
+Families
+ID: f2 | Married: 1 JUN 2002 | Divorced: 6 JUN 2009 | Husband ID: aa | Husband Name: Alex /Alexman/ | Wife ID: xp | Wife Name: Mary /Brown/ | Children: None
+Here are all the dead people: {'xp': 'Mary /Brown/'}
+@F2@
+All Family ID's are unique
