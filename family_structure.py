@@ -159,3 +159,35 @@ def correctGender(families, people):
         if (people[wifeID]['SEX'] != 'F'):
             errors.append("ERROR: FAMILY: US21: " + wifeID + ": Gender of Mother is Male")
     return errors
+
+def uniqueFam(people, families):   # US24
+    print(families)
+    print(people)
+    fam_dict = {}
+    for famID in families:
+        husbID = families[famID]['HUSB']
+        husb = people[husbID]['NAME']
+        wifeID = families[famID]['WIFE']
+        wife = people[wifeID]['NAME']
+        marr = families[famID]['MARR']
+        key_string = husb + wife + marr
+
+        if key_string in fam_dict:
+            return False
+        else:
+            fam_dict[key_string] = True
+    return True
+
+def uniqueFirst(people, families):   # US25
+    for familyID in families:
+        fam_dict = {}
+        if 'CHIL' in families[familyID]:
+            for childID in families[familyID]['CHIL']:
+                key_string = people[childID]['NAME'] + people[childID]['BIRT']
+
+                if key_string in fam_dict:
+                    return False
+                else:
+                    fam_dict[key_string] = True
+    return True
+
