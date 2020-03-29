@@ -17,6 +17,15 @@ print('\n#######################################################################
 
 
 
+#RT User Stories
+people, families = tag.read_file('./sprint3/rtSprint3.ged')
+people = age.store_ages(families, people)
+print_tables(families, people)
+family_structure_test.noNieceNephewMarriageTest(families)
+family_structure_test.noCousinMarriageTest(families)
+print('\n##########################################################################\n')
+
+
 
 # JT User Stories
 #US35
