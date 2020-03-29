@@ -3,6 +3,7 @@ from datetime import timedelta, datetime
 def calc_ages(people): #runs on whole dictionary
     today = datetime.now()
     for key in people:
+        validateDates(key, people) # check that the dates are valid
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
                 try:
@@ -141,3 +142,30 @@ def datesBeforeCurrent(people, families):
         if "DIV" in families[family]:
             if families[family]["DIV"] > today:
                 return "ERROR: FAMILY: US01 {} family has a divorce ({}) after today".format(family, families[family]['DIV'])
+
+def listRecentBirths(people):
+    thirtyDaysAgo = datetime.now() - timedelta(30)
+    newly_borns = []
+    for person in people:
+        if people[person]['BIRT'] > thirtyDaysAgo:
+            newly_borns.append(people[person]['NAME'])
+        else:
+            continue
+    return newly_borns
+
+def validateDates(person, people):
+    if (is_dead(person, people) == False):
+        try:
+            _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
+        except:
+            exit("ERROR: PERSON: US42: Invalid Birth Date for person: "+ people[person]['ID'])
+    else:
+        try:
+            _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
+        except:
+            exit("ERROR: PERSON: US42: Invalid Birth Date for person: " + people[person]['ID'])
+        try:
+            _ = datetime.strptime(people[person]['DEAT'], '%d %b %Y')
+        except:
+            exit("ERROR: PERSON: US42: Invalid Death Date for person: " + people[person]['ID'])
+    return 
