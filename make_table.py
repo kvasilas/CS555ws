@@ -13,19 +13,33 @@ def get_vals(curr_dict, people, families, header):
             else:
                 my_list.append(my_dict[key][header])
         elif(header == 'SPOUSE'):
+            count = 0
             for fam in families:
                 if(my_dict[key]['ID'] == families[fam]['HUSB']):
                     my_list.append(families[fam]['WIFE'])
+                    break
                 elif(my_dict[key]['ID'] == families[fam]['WIFE']):
                     my_list.append(families[fam]['HUSB'])
+                    break
                 else:
-                    my_list.append('NONE')
+                    if(count == len(families.keys())-1):
+                        my_list.append('NONE')
+                    else:
+                        count += 1
         elif(header == 'CHILD'):
+            count=0
             for fam in families:
                 if(my_dict[key]['ID'] == families[fam]['HUSB'] or my_dict[key]['ID'] == families[fam]['WIFE']):
-                    my_list.append(families[fam]['CHIL'])
+                    if 'CHIL' in families[fam].keys():
+                        my_list.append(families[fam]['CHIL'])
+                    else:
+                        my_list.append('NONE')
+                    break
                 else:
-                    my_list.append('NONE')
+                    if( count == len(families.keys())-1 ):
+                        my_list.append('NONE')
+                    else:
+                        count+=1
         else:
             my_list.append('NONE')
     return my_list
@@ -37,6 +51,7 @@ def print_tables(families, people):
     fam_headers = ['ID', 'MARR', 'DIV','HUSB', 'WIFE', 'CHIL']
 
     for col in ind_headers:
+        #print(get_vals('ind', people, families, col))
         ind_table.add_column(col, get_vals('ind', people, families, col))
     print('Individuals', ind_table, sep='\n')
     for col in fam_headers:
