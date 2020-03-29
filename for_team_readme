@@ -1,0 +1,12 @@
+Install Prettytable
+linux -> sudo pip3 install PTable
+windows -> pip3 install PTable
+
+references
+http://zetcode.com/python/prettytable/
+look at main.py i used it there
+
+Usage
+
+from make_table import print_tables
+print_tables(families, people)

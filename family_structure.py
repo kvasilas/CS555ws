@@ -159,3 +159,110 @@ def correctGender(families, people):
         if (people[wifeID]['SEX'] != 'F'):
             errors.append("ERROR: FAMILY: US21: " + wifeID + ": Gender of Mother is Male")
     return errors
+
+
+def noNieceNephewMarriage(families):
+    errors = []
+    for f in families:
+        husbandID = families[f]['HUSB']
+        wifeID = families[f]['WIFE']
+        for fam in families:
+            if ('CHIL' in families[fam]):
+                nntype = None
+                if (husbandID in families[fam]['CHIL']):
+                    nntype = "nephew"
+                if (wifeID in families[fam]['CHIL']):
+                    nntype = "niece"
+                if (nntype != None):
+                    father = families[fam]['HUSB']
+                    mother = families[fam]['WIFE']
+                    for family in families:
+                        if ('CHIL' in families[family]):
+                            if ((father in families[family]['CHIL']) or (mother in families[family]['CHIL'])):
+                                if ((nntype == "nephew") and (wifeID in families[family]['CHIL'])):
+                                    errors.append("ERROR: FAMILY: US20: " + wifeID + " & " + husbandID + ": Aunts and nephews cannot be married.")
+                                if ((nntype == "niece") and (husbandID in families[family]['CHIL'])):
+                                    errors.append("ERROR: FAMILY: US20: " + husbandID + " & " + wifeID + ": Uncles and nieces cannot be married.")
+    return errors
+
+
+def noCousinMarriage(families):
+    errors = []
+    for f in families:
+        husbandID = families[f]['HUSB']
+        wifeID = families[f]['WIFE']
+        husbMom, husbDad, wifeMom, wifeDad = None, None, None, None
+        for fam in families:
+            if ('CHIL' in families[fam]):
+                if (husbandID in families[fam]['CHIL']):
+                    husbMom = families[fam]['WIFE']
+                    husbDad = families[fam]['HUSB']
+                if (wifeID in families[fam]['CHIL']):
+                    wifeMom = families[fam]['WIFE']
+                    wifeDad = families[fam]['HUSB']
+        for family in families:
+            if ('CHIL' in families[family]):
+                if ((husbMom != None) and (wifeMom != None)):
+                    if((husbMom in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                if ((husbMom != None) and (wifeDad != None)):
+                    if((husbMom in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                if ((husbDad != None) and (wifeMom != None)):
+                    if((husbDad in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                if ((husbDad != None) and (wifeDad != None)):
+                    if((husbDad in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+    return errors
+
+
+def uniqueFam(people, families):   # US24
+    print(families)
+    print(people)
+    fam_dict = {}
+    for famID in families:
+        husbID = families[famID]['HUSB']
+        husb = people[husbID]['NAME']
+        wifeID = families[famID]['WIFE']
+        wife = people[wifeID]['NAME']
+        marr = families[famID]['MARR']
+        key_string = husb + wife + marr
+
+        if key_string in fam_dict:
+            return False
+        else:
+            fam_dict[key_string] = True
+    return True
+
+def uniqueFirst(people, families):   # US25
+    for familyID in families:
+        fam_dict = {}
+        if 'CHIL' in families[familyID]:
+            for childID in families[familyID]['CHIL']:
+                key_string = people[childID]['NAME'] + people[childID]['BIRT']
+
+                if key_string in fam_dict:
+                    return False
+                else:
+                    fam_dict[key_string] = True
+    return True
+
+def ListLivingMarried(people):
+    alive_married_list = []
+    for key in people:
+        if not age.is_dead(key, people):  # is alive?
+            if 'MARR_AGE' in people[key].keys() and 'DIV_AGE' not in people[key].keys():
+                alive_married_list.append(people[key]['NAME'])
+    return alive_married_list
+
+
+def ListLivingSingle(people):
+    #List all living people over 30 who have never been married in a GEDCOM file
+    alive_single_list = []
+    for key in people:
+        if not age.is_dead(key, people):  # is alive?
+            if('MARR_AGE' not in people[key].keys() and people[key]['AGE'] >= 30):
+                alive_single_list.append(people[key]['NAME'])
+    return alive_single_list
+

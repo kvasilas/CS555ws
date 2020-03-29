@@ -53,3 +53,13 @@ def correctGenderTest(families, people):
     errors = family_structure.correctGender(families, people)
     for x in errors:
         print(x)
+
+def noNieceNephewMarriageTest(families):
+    errors = family_structure.noNieceNephewMarriage(families)
+    for x in errors:
+        print(x)
+
+def noCousinMarriageTest(families):
+    errors = family_structure.noCousinMarriage(families)
+    for x in errors:
+        print(x)
