@@ -1,0 +1,73 @@
+Individuals
++----------+----------------+-----+---------------------+-----+-------+---------------------+--------------------------------------------------------------+----------+
+|    ID    |      NAME      | SEX |         BIRT        | AGE | ALIVE |         DEAT        |                            CHILD                             |  SPOUSE  |
++----------+----------------+-----+---------------------+-----+-------+---------------------+--------------------------------------------------------------+----------+
+| @I3KV01@ |   Rafa Brown   |  M  | 1950-06-03 00:00:00 |  69 |  True |         NONE        |       ['@I3KV03@', '@I3KV04@', '@I3KV05@', '@I3KV06@']       | @I3KV02@ |
+| @I3KV02@ |   Mary Brown   |  F  | 1950-06-06 00:00:00 |  69 |  True |         NONE        |       ['@I3KV03@', '@I3KV04@', '@I3KV05@', '@I3KV06@']       | @I3KV01@ |
+| @I3KV03@ | Antonio Brown  |  M  | 1975-03-09 00:00:00 |  45 |  True |         NONE        |                             NONE                             |   NONE   |
+| @I3KV04@ | Charlie Brown  |  M  | 2005-07-19 00:00:00 |  14 |  True |         NONE        |                             NONE                             |   NONE   |
+| @I3KV05@ |  Alexa Brown   |  F  | 1980-07-19 00:00:00 |  34 | False | 2015-03-10 00:00:00 |                             NONE                             |   NONE   |
+| @I3KV06@ |   Bob Brown    |  M  | 1990-12-19 00:00:00 |  24 | False | 2015-01-01 00:00:00 |                             NONE                             |   NONE   |
+| @I3KV07@ |  Miguel Brown  |  M  | 1982-12-19 00:00:00 |  37 |  True |         NONE        |                             NONE                             | @I3KV08@ |
+| @I3KV08@ |  Lady Ladyson  |  F  | 1982-12-19 00:00:00 |  37 |  True |         NONE        |                             NONE                             | @I3KV07@ |
+| @I3KV09@ |    Per Son     |  F  | 1981-12-19 00:00:00 |  38 |  True |         NONE        |                             NONE                             | @I3KV10@ |
+| @I3KV10@ |    Son Per     |  M  | 1980-12-19 00:00:00 |  39 |  True |         NONE        |                             NONE                             | @I3KV09@ |
+| @I3KV11@ |  Paul Paulson  |  M  | 1980-12-19 00:00:00 |  24 | False | 2005-03-20 00:00:00 |                             NONE                             | @I3KV12@ |
+| @I3KV12@ | carrie Careson |  F  | 1980-12-19 00:00:00 |  24 | False | 2005-03-20 00:00:00 |                             NONE                             | @I3KV11@ |
+| @I3RT01@ |   John /Doe/   |  M  | 1930-04-07 00:00:00 |  89 |  True |         NONE        | ['@I3RT03@', '@I3RT06@', '@I3RT07@', '@I3RT11@', '@I3RT12@'] | @I3RT02@ |
+| @I3RT02@ |   Jane /Doe/   |  F  | 1930-05-04 00:00:00 |  89 |  True |         NONE        | ['@I3RT03@', '@I3RT06@', '@I3RT07@', '@I3RT11@', '@I3RT12@'] | @I3RT01@ |
+| @I3RT03@ |   Joe /Doe/    |  M  | 1960-07-07 00:00:00 |  59 |  True |         NONE        |                   ['@I3RT05@', '@I3RT09@']                   | @I3RT04@ |
+| @I3RT04@ |   Jess /Doe/   |  F  | 1960-08-14 00:00:00 |  59 |  True |         NONE        |                   ['@I3RT05@', '@I3RT09@']                   | @I3RT03@ |
+| @I3RT05@ |   Jenn /Doe/   |  F  | 1990-06-07 00:00:00 |  29 |  True |         NONE        |                             NONE                             | @I3RT06@ |
+| @I3RT06@ |   Jeff /Doe/   |  M  | 1960-10-18 00:00:00 |  59 |  True |         NONE        |                             NONE                             | @I3RT05@ |
+| @I3RT07@ | Janelle /Doe/  |  F  | 1960-12-18 00:00:00 |  59 |  True |         NONE        |                             NONE                             | @I3RT09@ |
+| @I3RT09@ |  Jorge /Doe/   |  M  | 1990-07-29 00:00:00 |  29 |  True |         NONE        |                             NONE                             | @I3RT07@ |
+| @I3RT11@ |  Jerry /Doe/   |  M  | 1960-12-30 00:00:00 |  59 |  True |         NONE        |                         ['@I3RT14@']                         | @I3RT13@ |
+| @I3RT12@ |   Jet /Doe/    |  M  | 1960-12-31 00:00:00 |  59 |  True |         NONE        |                         ['@I3RT16@']                         | @I3RT15@ |
+| @I3RT13@ |   Jean /Doe/   |  F  | 1960-05-14 00:00:00 |  59 |  True |         NONE        |                         ['@I3RT14@']                         | @I3RT11@ |
+| @I3RT14@ |  Jeremy /Doe/  |  M  | 1990-02-12 00:00:00 |  30 |  True |         NONE        |                             NONE                             | @I3RT16@ |
+| @I3RT15@ |  Jackie /Doe/  |  F  | 1960-05-25 00:00:00 |  59 |  True |         NONE        |                         ['@I3RT16@']                         | @I3RT12@ |
+| @I3RT16@ |  Julia /Doe/   |  F  | 1990-09-19 00:00:00 |  29 |  True |         NONE        |                             NONE                             | @I3RT14@ |
+| @I3JD01@ |  Joe /Smith/   |  M  | 2000-06-01 00:00:00 |  19 |  True |         NONE        |                   ['@I3JD03@', '@I3JD04@']                   | @I3JD02@ |
+| @I3JD02@ |  Jane /Smith/  |  F  | 2000-06-10 00:00:00 |  19 |  True |         NONE        |                   ['@I3JD03@', '@I3JD04@']                   | @I3JD01@ |
+| @I3JD05@ |  Joe /Smith/   |  M  | 2000-06-01 00:00:00 |  19 |  True |         NONE        |                             NONE                             | @I3JD06@ |
+| @I3JD06@ |  Jane /Smith/  |  F  | 2000-06-10 00:00:00 |  19 |  True |         NONE        |                             NONE                             | @I3JD05@ |
+| @I3JD03@ |  Josh /Smith/  |  M  | 2019-06-10 00:00:00 |  0  |  True |         NONE        |                             NONE                             |   NONE   |
+| @I3JD04@ |  Josh /Smith/  |  M  | 2019-06-10 00:00:00 |  0  |  True |         NONE        |                             NONE                             |   NONE   |
+| @I3JT01@ | Baby /Person/  |  M  | 2020-03-14 00:00:00 |  0  |  True |         NONE        |                             NONE                             |   NONE   |
+| @I3JT02@ | Father /Baby/  |  M  | 1980-07-05 00:00:00 |  39 |  True |         NONE        |                   ['@I3JT01@', '@I3JT04@']                   | @I3JT03@ |
+| @I3JT03@ | Mother /Baby/  |  F  | 1978-02-07 00:00:00 |  42 |  True |         NONE        |                   ['@I3JT01@', '@I3JT04@']                   | @I3JT02@ |
+| @I3JT04@ | Another /Baby/ |  M  | 2020-03-12 00:00:00 |  0  |  True |         NONE        |                             NONE                             |   NONE   |
++----------+----------------+-----+---------------------+-----+-------+---------------------+--------------------------------------------------------------+----------+
+Families
++----------+-------------+------------+------------------------+-------------------------+--------------------------------------------------------------+
+|    ID    |     MARR    |    DIV     |          HUSB          |           WIFE          |                             CHIL                             |
++----------+-------------+------------+------------------------+-------------------------+--------------------------------------------------------------+
+| @F3KV02@ |  1 JUN 2000 | 6 JUN 2009 |  @I3KV01@ Rafa Brown   |   @I3KV02@ Mary Brown   |       ['@I3KV03@', '@I3KV04@', '@I3KV05@', '@I3KV06@']       |
+| @F3KV01@ |  1 JUN 2000 |    NONE    | @I3KV07@ Miguel Brown  |  @I3KV08@ Lady Ladyson  |                             NONE                             |
+| @F3KV03@ |  1 JUN 2000 | 1 Jul 2010 |    @I3KV10@ Son Per    |     @I3KV09@ Per Son    |                             NONE                             |
+| @F3KV04@ |  1 JUN 2000 |    NONE    | @I3KV11@ Paul Paulson  | @I3KV12@ carrie Careson |                             NONE                             |
+| @F3RT01@ |     NONE    |    NONE    |  @I3RT01@ John /Doe/   |   @I3RT02@ Jane /Doe/   | ['@I3RT03@', '@I3RT06@', '@I3RT07@', '@I3RT11@', '@I3RT12@'] |
+| @F3RT02@ |     NONE    |    NONE    |   @I3RT03@ Joe /Doe/   |   @I3RT04@ Jess /Doe/   |                   ['@I3RT05@', '@I3RT09@']                   |
+| @F3RT03@ |     NONE    |    NONE    |  @I3RT06@ Jeff /Doe/   |   @I3RT05@ Jenn /Doe/   |                             NONE                             |
+| @F3RT04@ |     NONE    |    NONE    |  @I3RT09@ Jorge /Doe/  |  @I3RT07@ Janelle /Doe/ |                             NONE                             |
+| @F3RT05@ |     NONE    |    NONE    |  @I3RT11@ Jerry /Doe/  |   @I3RT13@ Jean /Doe/   |                         ['@I3RT14@']                         |
+| @F3RT06@ |     NONE    |    NONE    |   @I3RT12@ Jet /Doe/   |  @I3RT15@ Jackie /Doe/  |                         ['@I3RT16@']                         |
+| @F3RT07@ |     NONE    |    NONE    | @I3RT14@ Jeremy /Doe/  |   @I3RT16@ Julia /Doe/  |                             NONE                             |
+| @F3JD01@ | 21 JUL 2016 |    NONE    |  @I3JD01@ Joe /Smith/  |  @I3JD02@ Jane /Smith/  |                   ['@I3JD03@', '@I3JD04@']                   |
+| @F3JD02@ | 21 JUL 2016 |    NONE    |  @I3JD05@ Joe /Smith/  |  @I3JD06@ Jane /Smith/  |                             NONE                             |
+| @F3JT01@ |     NONE    |    NONE    | @I3JT02@ Father /Baby/ |  @I3JT03@ Mother /Baby/ |                   ['@I3JT01@', '@I3JT04@']                   |
++----------+-------------+------------+------------------------+-------------------------+--------------------------------------------------------------+
+
+User story demonstrations: US30, US31, US35:
+US30 - List living Married:  ['Miguel Brown', 'Lady Ladyson']
+US31 - List living Single over 30:  ['Antonio Brown']
+US35 - Recent Births: ['Baby /Person/', 'Another /Baby/']
+
+User story demonstrations: US19, US20, US24, US25, US42:
+ERROR: FAMILY: US19: @I3RT14@ & @I3RT16@: First cousins cannot be married.
+ERROR: FAMILY: US20: @I3RT06@ & @I3RT05@: Uncles and nieces cannot be married.
+ERROR: FAMILY: US20: @I3RT07@ & @I3RT09@: Aunts and nephews cannot be married.
+ERROR: FAMILY: US24: Families: @F3JD02@ and @F3JD01@ seem to be duplicates
+ERROR: INDIVIDUAL: US25: Josh /Smith/ appears twice within familiy id: @F3JD01@
+ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: @I3JT99@
