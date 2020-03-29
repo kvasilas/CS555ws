@@ -257,7 +257,7 @@ def ListLivingMarried(people):
     return alive_married_list
 
 
-def list_living_single(people):
+def ListLivingSingle(people):
     #List all living people over 30 who have never been married in a GEDCOM file
     alive_single_list = []
     for key in people:
