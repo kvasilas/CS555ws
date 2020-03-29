@@ -171,3 +171,4 @@ def validateDates(person, people):
         except:
             exit("ERROR: PERSON: US42: Invalid Death Date for person: " + people[person]['ID'])
     return 
+
