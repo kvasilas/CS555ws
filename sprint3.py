@@ -15,6 +15,20 @@ print("US30 - List living Married: ", family_structure_test.test_ListLivingMarri
 print("US31 - List living Single over 30: ", family_structure_test.test_ListLivingSingle(people))
 print('\n##########################################################################\n')
 
+
+
+#RT User Stories
+people, families = tag.read_file('./sprint3/rtSprint3.ged')
+people = age.store_ages(families, people)
+print_tables(families, people)
+#US19 - First cousins should not marry
+family_structure_test.noCousinMarriageTest(families)
+#US20 - Aunts and uncles should not marry nieces and nephews
+family_structure_test.noNieceNephewMarriageTest(families)
+print('\n##########################################################################\n')
+
+
+
 # JD User Stories
 print('JD User Stories 24 & 25')
 people, families = tag.read_file('./sprint3/jd_sprint3.ged')
@@ -25,6 +39,8 @@ print(family_structure_test.test_unique_fam(people, families))
 # US25
 print(family_structure_test.test_unique_first(people, families))
 print('\n##########################################################################\n')
+
+
 
 # JT User Stories
 #US35
