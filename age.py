@@ -6,6 +6,7 @@ def calc_ages(people): #runs on whole dictionary
         validateDates(key, people) # check that the dates are valid
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
+                people[key]['ALIVE'] = True
                 try:
                     bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
                 except:
@@ -14,6 +15,7 @@ def calc_ages(people): #runs on whole dictionary
                 people[key]['AGE'] = int((today - bday).days/365.2425)
             else:
                 #if dead age is their last living age people[key]['AGE']
+                people[key]['ALIVE'] = False
                 age = death_age(key, people)
                 people[key]['AGE'] = age
                 if(age < 0): #death before birth
