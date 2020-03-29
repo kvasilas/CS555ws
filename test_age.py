@@ -13,7 +13,7 @@ if __name__ == '__main__':
     unittest.main()
 
 
-# Commented out old tests. Add ur tests as methods for the TestAge Class and then add them indiviudally to travis
+# Commented out old tests. Add ur tests as methods for the TestAge Class and then add them individually to travis
 
 # def test_birth_b4_marr(key, people):
 #     ans = check_birth_before_marr(key,people)

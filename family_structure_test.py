@@ -69,3 +69,17 @@ def test_ListLivingMarried(people):
 
 def test_ListLivingSingle(people):
     return(family_structure.ListLivingSingle(people))
+
+def test_unique_fam(people, families):
+    tmp = family_structure.uniqueFam(people, families)
+    if "ERROR" in tmp:
+        return tmp
+    else:
+        return "Pass"
+
+def test_unique_first(people, families):
+    tmp = family_structure.uniqueFirst(people, families)
+    if "ERROR" in tmp:
+        return tmp
+    else:
+        return "Pass"
