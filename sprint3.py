@@ -12,7 +12,7 @@ people = age.store_ages(families, people)
 print('KV User Stories: US30 - List living married and US31 -List living single')
 print_tables(families, people)
 print("US30 - List living Married: ", family_structure_test.test_ListLivingMarried(people))
-print("US30 - List living Single over 30: ", family_structure_test.test_ListLivingSingle(people))
+print("US31 - List living Single over 30: ", family_structure_test.test_ListLivingSingle(people))
 print('\n##########################################################################\n')
 
 
