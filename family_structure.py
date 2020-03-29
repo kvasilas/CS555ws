@@ -191,3 +191,20 @@ def uniqueFirst(people, families):   # US25
                     fam_dict[key_string] = True
     return True
 
+def ListLivingMarried(people):
+    alive_married_list = []
+    for key in people:
+        if not age.is_dead(key, people):  # is alive?
+            if 'MARR_AGE' in people[key].keys() and 'DIV_AGE' not in people[key].keys():
+                alive_married_list.append(people[key]['NAME'])
+    return alive_married_list
+
+
+def list_living_single(people):
+    #List all living people over 30 who have never been married in a GEDCOM file
+    alive_single_list = []
+    for key in people:
+        if not age.is_dead(key, people):  # is alive?
+            if('MARR_AGE' not in people[key].keys() and people[key]['AGE'] >= 30):
+                alive_single_list.append(people[key]['NAME'])
+    return alive_single_list
