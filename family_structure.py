@@ -224,8 +224,6 @@ def noCousinMarriage(families):
 
 
 def uniqueFam(people, families):   # US24
-    print(families)
-    print(people)
     fam_dict = {}
     for famID in families:
         husbID = families[famID]['HUSB']
@@ -236,9 +234,9 @@ def uniqueFam(people, families):   # US24
         key_string = husb + wife + marr
 
         if key_string in fam_dict:
-            return False
+            return "ERROR: FAMILY: US24: Families: " + famID + " and " + fam_dict[key_string] + " seem to be duplicates"
         else:
-            fam_dict[key_string] = True
+            fam_dict[key_string] = famID
     return True
 
 def uniqueFirst(people, families):   # US25
@@ -246,10 +244,10 @@ def uniqueFirst(people, families):   # US25
         fam_dict = {}
         if 'CHIL' in families[familyID]:
             for childID in families[familyID]['CHIL']:
-                key_string = people[childID]['NAME'] + people[childID]['BIRT']
+                key_string = people[childID]['NAME'] + people[childID]['BIRT'].strftime("%m/%d/%Y")
 
                 if key_string in fam_dict:
-                    return False
+                    return "ERROR: INDIVIDUAL: US25: " + people[childID]['NAME'] + " appears twice within familiy id: " + familyID
                 else:
                     fam_dict[key_string] = True
     return True
