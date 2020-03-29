@@ -18,6 +18,7 @@ print('\n#######################################################################
 
 
 #RT User Stories
+print("RT user stories US19 & US20")
 people, families = tag.read_file('./sprint3/rtSprint3.ged')
 people = age.store_ages(families, people)
 print_tables(families, people)
