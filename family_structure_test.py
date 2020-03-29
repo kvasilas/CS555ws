@@ -63,3 +63,9 @@ def noCousinMarriageTest(families):
     errors = family_structure.noCousinMarriage(families)
     for x in errors:
         print(x)
+
+def test_ListLivingMarried(people):
+    return(family_structure.ListLivingMarried(people))
+
+def test_ListLivingSingle(people):
+    return(family_structure.ListLivingSingle(people))
