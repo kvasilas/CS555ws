@@ -2,7 +2,5 @@ language: python
 python:
     - "2.7"
     - "3.6"
-install:
-    - pip install unittest
 script:
-    - python ./tests/test_age_less_than_150.py
+    - python -m unittest test_age.TestAge.test_age_less_than_150
