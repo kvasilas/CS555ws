@@ -180,9 +180,9 @@ def noNieceNephewMarriage(families):
                         if ('CHIL' in families[family]):
                             if ((father in families[family]['CHIL']) or (mother in families[family]['CHIL'])):
                                 if ((nntype == "nephew") and (wifeID in families[family]['CHIL'])):
-                                    errors.append("ERROR: FAMILY: US20: " + wifeID + "&" + husbandID + ": Aunts and nephews cannot be married.")
+                                    errors.append("ERROR: FAMILY: US20: " + wifeID + " & " + husbandID + ": Aunts and nephews cannot be married.")
                                 if ((nntype == "niece") and (husbandID in families[family]['CHIL'])):
-                                    errors.append("ERROR: FAMILY: US20: " + husbandID + "&" + wifeID + ": Uncles and nieces cannot be married.")
+                                    errors.append("ERROR: FAMILY: US20: " + husbandID + " & " + wifeID + ": Uncles and nieces cannot be married.")
     return errors
 
 def noCousinMarriage(families):
@@ -190,7 +190,7 @@ def noCousinMarriage(families):
     for f in families:
         husbandID = families[f]['HUSB']
         wifeID = families[f]['WIFE']
-        husbMom, husbDAD, wifeMom, wifeDAD = None, None, None, None
+        husbMom, husbDad, wifeMom, wifeDad = None, None, None, None
         for fam in families:
             if ('CHIL' in families[fam]):
                 if (husbandID in families[fam]['CHIL']):
@@ -200,17 +200,18 @@ def noCousinMarriage(families):
                     wifeMom = families[fam]['WIFE']
                     wifeDad = families[fam]['HUSB']
         for family in families:
-            if ((husbMom != None) and (wifeMom != None)):
-                if((husbMom in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
-                    errors.append("ERROR: FAMILY: US19: " + husbandID + "&" + wifeID + ": First cousins cannot be married.")
-            if ((husbMom != None) and (wifeDad != None)):
-                if((husbMom in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
-                    errors.append("ERROR: FAMILY: US19: " + husbandID + "&" + wifeID + ": First cousins cannot be married.")
-            if ((husbDad != None) and (wifeMom != None)):
-                if((husbDad in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
-                    errors.append("ERROR: FAMILY: US19: " + husbandID + "&" + wifeID + ": First cousins cannot be married.")
-            if ((husbDad != None) and (wifeDad != None)):
-                if((husbDad in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
-                    errors.append("ERROR: FAMILY: US19: " + husbandID + "&" + wifeID + ": First cousins cannot be married.")
+            if ('CHIL' in families[family]):
+                if ((husbMom != None) and (wifeMom != None)):
+                    if((husbMom in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                if ((husbMom != None) and (wifeDad != None)):
+                    if((husbMom in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                if ((husbDad != None) and (wifeMom != None)):
+                    if((husbDad in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                if ((husbDad != None) and (wifeDad != None)):
+                    if((husbDad in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
+                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
     return errors
         
