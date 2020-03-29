@@ -43,3 +43,10 @@ def test_date_before_current(people, families):
     result = datesBeforeCurrent(people, families)
     if "ERROR" in result:
         print(result)
+
+def test_list_recent_births(people):
+    return listRecentBirths(people)
+
+
+def test_validateDates(people):
+    return calc_ages(people)
