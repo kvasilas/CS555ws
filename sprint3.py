@@ -24,7 +24,7 @@ people, families = tag.read_file('./sprint3/jt_list_recent_births.ged')
 people = age.store_ages(families, people)
 print('JT user stories US35 and US42')
 print_tables(families, people)
-print("US35 - Recent Births:", test_age.listRecentBirths(people))
+print("US35 - Recent Births:", age.listRecentBirths(people))
 
 # run validate age last because it will exit out the program when an invalid age is entered
 # this is because there is no point in continuing with the rest of the program when the dates are invalid
@@ -32,5 +32,5 @@ print("US35 - Recent Births:", test_age.listRecentBirths(people))
 people, families = tag.read_file('./sprint3/jt_validate_age.ged')
 people = age.store_ages(families, people)
 print_tables(families, people)
-print('US42 - Reject illegitamite Dates:', test_age.test_validateDates(people))
+print('US42 - Reject illegitamite Dates:', age.calc_ages(people))
 
