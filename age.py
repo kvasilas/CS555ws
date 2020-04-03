@@ -160,15 +160,15 @@ def validateDates(person, people):
         try:
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
-            exit("ERROR: PERSON: US42: Invalid Birth Date for person: "+ people[person]['ID'])
+            exit("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID'])
     else:
         try:
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
-            exit("ERROR: PERSON: US42: Invalid Birth Date for person: " + people[person]['ID'])
+            exit("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: " + people[person]['ID'])
         try:
             _ = datetime.strptime(people[person]['DEAT'], '%d %b %Y')
         except:
-            exit("ERROR: PERSON: US42: Invalid Death Date for person: " + people[person]['ID'])
+            exit("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Death Date for person: " + people[person]['ID'])
     return 
 

@@ -183,7 +183,10 @@ def noNieceNephewMarriage(families):
                                     errors.append("ERROR: FAMILY: US20: " + wifeID + " & " + husbandID + ": Aunts and nephews cannot be married.")
                                 if ((nntype == "niece") and (husbandID in families[family]['CHIL'])):
                                     errors.append("ERROR: FAMILY: US20: " + husbandID + " & " + wifeID + ": Uncles and nieces cannot be married.")
-    return errors
+    if(errors != None):
+        return errors
+    else:
+        return True
 
 
 def noCousinMarriage(families):
@@ -214,7 +217,10 @@ def noCousinMarriage(families):
                 if ((husbDad != None) and (wifeDad != None)):
                     if((husbDad in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
                         errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
-    return errors
+    if(errors != []):
+        return errors
+    else:
+        return True
 
 
 def uniqueFam(people, families):   # US24
