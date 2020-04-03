@@ -1,87 +1,106 @@
-import family_structure
+import unittest
 
-def fiveLessBirthsTest(people, families):
-    if family_structure.fiveLessBirths(people, families) == "More than five siblings were born on the same day":
-        return "Error, five or more births"
+from family_structure import *
+from tag_parse import *
+from age import *
 
-def fifteenLessSiblingsTest(families):
-    if family_structure.fifteenLessSiblings(families) == "A family contains more than fourteen siblings":
-        return "Error, fifteen or more siblings in a family"
+class TestFamStruct(unittest.TestCase):
 
-def parentsNotTooOldTest(people, family, families):
-    ans = family_structure.parents_not_too_old(people, family, families)
-    if ("ERROR" in ans):
-        return ans
+    def test_ListLivingMarried(self):
+        people, families = read_file('../sprint3/kv_sprint3.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(ListLivingMarried(people), [])
 
-def maleLastNameTest(people, family, families):
-    ans = family_structure.male_last_names_align(people, family, families)
-    if ("ERROR" in ans):
-        return ans
+    def test_ListLivingSingle(self):
+        people, families = read_file('../sprint3/kv_sprint3.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(ListLivingSingle(people), [])
 
-def noChildMarryTest(families):
-    ans = family_structure.noChildMarry(families)
-    if ("ERROR" in ans):
-        return ans
+if __name__ == '__main__':
+    unittest.main()
 
-def uniqueIndividualIDsTest(people):
-    result = family_structure.uniqueIndividualIDs(people)
-    if ("ERROR" in result):
-        return result
-    else:
-        return "All Individual ID's are unique"
+# def fiveLessBirthsTest(people, families):
+#     if family_structure.fiveLessBirths(people, families) == "More than five siblings were born on the same day":
+#         return "Error, five or more births"
 
-def uniqueFamilyIDsTest(families):
-    result = family_structure.uniqueFamilyIDs(families)
-    if ("ERROR" in result):
-        return result
-    else:
-        return "All Family ID's are unique"
+# def fifteenLessSiblingsTest(families):
+#     if family_structure.fifteenLessSiblings(families) == "A family contains more than fourteen siblings":
+#         return "Error, fifteen or more siblings in a family"
 
-def listDeceasedTest(people):
-    result = family_structure.listDeceased(people)
-    if ("ERROR" in result):
-        return result
-    else:
-        return "Here are all the dead people: " + str(result)
+# def parentsNotTooOldTest(people, family, families):
+#     ans = family_structure.parents_not_too_old(people, family, families)
+#     if ("ERROR" in ans):
+#         return ans
 
-def noSiblingMarriageTest(families):
-    errors = family_structure.noSiblingMarriage(families)
-    for x in errors:
-        print(x)
+# def maleLastNameTest(people, family, families):
+#     ans = family_structure.male_last_names_align(people, family, families)
+#     if ("ERROR" in ans):
+#         return ans
 
-def correctGenderTest(families, people):
-    errors = family_structure.correctGender(families, people)
-    for x in errors:
-        print(x)
+# def noChildMarryTest(families):
+#     ans = family_structure.noChildMarry(families)
+#     if ("ERROR" in ans):
+#         return ans
 
-def noNieceNephewMarriageTest(families):
-    errors = family_structure.noNieceNephewMarriage(families)
-    if errors != True:
-        for x in errors:
-            print(x)
+# def uniqueIndividualIDsTest(people):
+#     result = family_structure.uniqueIndividualIDs(people)
+#     if ("ERROR" in result):
+#         return result
+#     else:
+#         return "All Individual ID's are unique"
 
-def noCousinMarriageTest(families):
-    errors = family_structure.noCousinMarriage(families)
-    if errors != True:
-        for x in errors:
-            print(x)
+# def uniqueFamilyIDsTest(families):
+#     result = family_structure.uniqueFamilyIDs(families)
+#     if ("ERROR" in result):
+#         return result
+#     else:
+#         return "All Family ID's are unique"
 
-def test_ListLivingMarried(people):
-    return(family_structure.ListLivingMarried(people))
+# def listDeceasedTest(people):
+#     result = family_structure.listDeceased(people)
+#     if ("ERROR" in result):
+#         return result
+#     else:
+#         return "Here are all the dead people: " + str(result)
 
-def test_ListLivingSingle(people):
-    return(family_structure.ListLivingSingle(people))
+# def noSiblingMarriageTest(families):
+#     errors = family_structure.noSiblingMarriage(families)
+#     for x in errors:
+#         print(x)
 
-def test_unique_fam(people, families):
-    tmp = family_structure.uniqueFam(people, families)
-    if "ERROR" in tmp:
-        return tmp
-    else:
-        return "Pass"
+# def correctGenderTest(families, people):
+#     errors = family_structure.correctGender(families, people)
+#     for x in errors:
+#         print(x)
 
-def test_unique_first(people, families):
-    tmp = family_structure.uniqueFirst(people, families)
-    if "ERROR" in tmp:
-        return tmp
-    else:
-        return "Pass"
+# def noNieceNephewMarriageTest(families):
+#     errors = family_structure.noNieceNephewMarriage(families)
+#     if errors != True:
+#         for x in errors:
+#             print(x)
+
+# def noCousinMarriageTest(families):
+#     errors = family_structure.noCousinMarriage(families)
+#     if errors != True:
+#         for x in errors:
+#             print(x)
+
+# def test_ListLivingMarried(people):
+#     return(family_structure.ListLivingMarried(people))
+
+# def test_ListLivingSingle(people):
+#     return(family_structure.ListLivingSingle(people))
+
+# def test_unique_fam(people, families):
+#     tmp = family_structure.uniqueFam(people, families)
+#     if "ERROR" in tmp:
+#         return tmp
+#     else:
+#         return "Pass"
+
+# def test_unique_first(people, families):
+#     tmp = family_structure.uniqueFirst(people, families)
+#     if "ERROR" in tmp:
+#         return tmp
+#     else:
+#         return "Pass"

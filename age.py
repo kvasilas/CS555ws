@@ -59,12 +59,6 @@ def marr_and_div_ages(families, people): #runs on whole dictionary
                 div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
                 people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
                 people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-            
-            # if ('DIV' in people[families[key]['HUSB']].keys() or 'DIV' in people[families[key]['WIFE']].keys()):
-            #     div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
-            #     people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-            #     people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-            #print(marr_date)
             try:
                 people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
             except:
@@ -75,17 +69,22 @@ def marr_and_div_ages(families, people): #runs on whole dictionary
             except:
                 exit("ERROR: INDIVIDUAL: US22: Individual ID is not unique ")
     return(people)
-#HERE
-def div_age():
-    pass
-#kc sprint 1 birth before marrage | birth before death
 
 def check_birth_before_marr(key, people):
     if(people[key]['MARR_AGE'] < 0):
         people[key]['MARR_AGE'] = "INVALID"
-        return("ERROR: Invalid Marrage date, married before birth")
+        return("ERROR: US02: "+people[key]["NAME"]+" Married before birth")
     else:
         return("Marrage date valid")
+
+def check_birth_before_death(key, people):
+    if('BIRT' in people[key].keys()):
+        if('Death' in people[key].keys()):
+            if('AGE' in people[key].keys()):
+                if(people[key]['AGE'] < 0):
+                    return("ERROR: US03: "+people[key]["NAME"]+" Birth Before Death")
+                else:
+                    return(key+"PASS Birth Before Death")
 
 def store_ages(families, people):
     people = calc_ages(people)
