@@ -4,3 +4,5 @@ python:
     - "3.6"
 script:
     - python -m unittest test_age.TestAge.test_age_less_than_150
+    - python -m unittest family_structure_test.TestFamStruct.test_ListLivingMarried
+    - python -m unittest family_structure_test.TestFamStruct.test_ListLivingSingle
