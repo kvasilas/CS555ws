@@ -6,35 +6,31 @@ from collections import defaultdict
 
 
 def fiveLessBirths(people, families):   # Determines whether more than five siblings were born on the same date
-    children = []   # list which will store individual lists of children separated by family
-    for id in families:
-        try:
-            children.append(families[id]['CHIL'])
-        except:
-            pass
-    isValid = True
-    for related_children in children:   # iterate through each set of siblings
+    children = {}   # dict which will store individual lists of children by family id
+    for fam_id in families:
+        if 'CHIL' in families[fam_id]:
+            children[fam_id] = families[fam_id]['CHIL']
+    for fam_id in children:   # iterate through each set of siblings
         dict_of_dates = {}
-        for child in related_children:   # iterate through each child among siblings, storing each unique birthdate as
+        for child in children[fam_id]:   # iterate through each child among siblings, storing each unique birthdate as
             # key and iterating value for non unique date - US14
-            try:
-                dict_of_dates[people[child]['BIRT']] += 1
-            except:
-                dict_of_dates[people[child]['BIRT']] = 1
+            if 'BIRT' in people[child]:
+                if people[child]['BIRT'] in dict_of_dates:
+                    dict_of_dates[people[child]['BIRT']].append(child)
+                else:
+                    dict_of_dates[people[child]['BIRT']] = [child]
         for date in dict_of_dates:
-            if dict_of_dates[date] > 5:   # check for number of coincident births
-                isValid = False
-    if not isValid:
-        return "More than five siblings were born on the same day"
+            if len(dict_of_dates[date]) > 5:   # check for number of coincident births
+                return "ERROR: FAMILY: US14: {} all have than same birth in family {} - [NOT] fewer than five births".format(dict_of_dates[date], fam_id)
+    return True
 
 
 def fifteenLessSiblings(families):   # Tests that each family has less than fifteen siblings - US15
-    isValid = True
     for family in families:
-        if len(families[family]["CHIL"]) > 14:
-                isValid = False
-        if not isValid:
-            return "A family contains more than fourteen siblings"
+        if 'CHIL' in families[family]:
+            if len(families[family]["CHIL"]) > 14:
+                return "ERROR: FAMILY: US15: Family {} has more than fourteen siblings".format(family)
+    return True
 
 
 def parents_not_too_old(people, family, families):
@@ -70,21 +66,14 @@ def noChildMarry(families):
     mother_dict = getMotherChildren(families)
 
     for family in families:
-        wife = families[family]["WIFE"]
-        husband = families[family]['HUSB']
+        wife = families[family].get("WIFE", None)
+        husband = families[family].get('HUSB', None)
 
-        try:
-            if husband in mother_dict[wife]:
-                return "ERROR: FAMILY: US17 A mother ({}) is married to her child ({})".format(wife, husband)
-        except:
-            pass
-        try:
-            if wife in father_dict[husband]:
-                return "ERROR: FAMILY: US17 A father ({}) is married to his child ({})".format(husband, wife)
-        except:
-            pass
-
-    return ""
+        if husband in mother_dict.get(wife, []):
+            return "ERROR: FAMILY: US17: A mother ({}) is married to her child ({})".format(wife, husband)
+        if wife in father_dict.get(husband, []):
+            return "ERROR: FAMILY: US17: A father ({}) is married to his child ({})".format(husband, wife)
+    return True
 
 def getFatherChildren(families):   # Returns a dictionary with key being a father and value being list of their children
     fathers = {}
@@ -226,11 +215,17 @@ def noCousinMarriage(families):
 def uniqueFam(people, families):   # US24
     fam_dict = {}
     for famID in families:
-        husbID = families[famID]['HUSB']
-        husb = people[husbID]['NAME']
-        wifeID = families[famID]['WIFE']
-        wife = people[wifeID]['NAME']
-        marr = families[famID]['MARR']
+        husbID = families[famID].get('HUSB', None)
+        husb = people.get(husbID, False)
+        if husb:
+            husb = husb.get('NAME', False)
+        wifeID = families[famID].get('WIFE', None)
+        wife = people.get(wifeID, False)
+        if wife:
+            wife = wife.get('NAME', False)
+        marr = families[famID].get('MARR', False)
+        if not husb or not wife or not marr:
+            continue
         key_string = husb + wife + marr
 
         if key_string in fam_dict:
@@ -244,6 +239,8 @@ def uniqueFirst(people, families):   # US25
         fam_dict = {}
         if 'CHIL' in families[familyID]:
             for childID in families[familyID]['CHIL']:
+                if 'BIRT' not in people[childID]:
+                    continue
                 key_string = people[childID]['NAME'] + people[childID]['BIRT'].strftime("%m/%d/%Y")
 
                 if key_string in fam_dict:
