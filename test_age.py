@@ -7,7 +7,12 @@ class TestAge(unittest.TestCase):
     def test_age_less_than_150(self):
         people, families = read_file('./sprint1/jt_sprint1.ged')
         people = store_ages(families, people)
-        self.assertEqual(less_than_one_fifty('@I1@', people), 'Death Age Invalid')
+        self.assertIn('ERROR', less_than_one_fifty('@I1JT01@', people))
+    
+    def test_marrige_after_fourteen(self):
+        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people = store_ages(families, people)
+        self.assertIn('ERROR', less_than_one_fifty('@I1JT01@', people))
 
     def test_birth_b4_marr(self):
         people, families = read_file('./sprint1/jt_sprint1.ged')
@@ -32,6 +37,12 @@ class TestAge(unittest.TestCase):
         people = store_ages(families, people)
         for key in people:
             self.assertEqual(div_b4_death(key, people), 'ERROR')
+
+    def test_validateDates(self):
+        people, families = read_file('./sprint3/jt_validate_age.ged')
+        people = store_ages(families, people)
+        for person in people:
+            self.assertIn('ERROR', validateDates(person, people))
 
 if __name__ == '__main__':
     unittest.main()
