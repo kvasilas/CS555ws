@@ -2,7 +2,8 @@
 
 import tag_parse as tag
 import age
-from collections import defaultdict 
+from collections import defaultdict
+from datetime import datetime
 
 
 def fiveLessBirths(people, families):   # Determines whether more than five siblings were born on the same date
@@ -224,6 +225,7 @@ def uniqueFam(people, families):   # US24
         if wife:
             wife = wife.get('NAME', False)
         marr = families[famID].get('MARR', False)
+        marr = marr.strftime("%m/%d/%Y")
         if not husb or not wife or not marr:
             continue
         key_string = husb + wife + marr
