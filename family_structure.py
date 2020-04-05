@@ -34,32 +34,52 @@ def fifteenLessSiblings(families):   # Tests that each family has less than fift
     return True
 
 
-def parents_not_too_old(people, family, families):
-    motherid = families[family]['WIFE']
-    fatherid = families[family]['HUSB']
-    error_str = ""
-    for child in families[family]['CHIL']:
-        if(age.get_age(motherid, people) - age.get_age(child, people) >= 60):
-            error_str += "Mother is too old - ID: " + child + " | "
-        if (age.get_age(fatherid, people) - age.get_age(child, people) >= 80):
-            error_str += "Father is too old - ID: " + child + " | "
-    if (error_str != ""):
-        return "ERROR: " + error_str
-
+def parents_not_too_old(people, families):
+    errors = []
+    for family in families:
+        if(('WIFE' in families[family]) and ('CHIL' in families[family])):
+            motherid = families[family]['WIFE']
+            for child in families[family]['CHIL']:
+                if ((motherid in people) and (child in people)):
+                    if (age.get_age(motherid, people) - age.get_age(child, people) >= 60):
+                        errors.append("ERROR: FAMILY: US12: " + family + " | " + motherid + " & " + child + ": Mother is too old")
+        if(('HUSB' in families[family]) and ('CHIL' in families[family])):
+            fatherid = families[family]['HUSB']
+            for child in families[family]['CHIL']:
+                if ((fatherid in people) and (child in people)):
+                    if (age.get_age(fatherid, people) - age.get_age(child, people) >= 80):
+                        errors.append("ERROR: FAMILY: US12: " + family + " | " + fatherid + " & " + child + ": Father is too old")
+    if (errors != []):
+        return errors
+    return True
 
 def get_last_name(key, people):
-    name = people[key]['NAME'][:-1]
-    while (name[0] != "/"):
+    name = people[key]['NAME']
+    while (" " in name):
         name = name[1:]
-    return name[1:]
+    if(name[0] == "/"):
+        name = name[1:-1]
+    return name
 
 
-def male_last_names_align(people, family, families):
-    male_ln = get_last_name(families[family]['HUSB'],people)
-    for child in families[family]['CHIL']:
-        if (people[child]['SEX'] == 'M'):
-            if (get_last_name(child,people) != male_ln):
-                return "ERROR: Male child's last name does not match father's - ID: " + child
+def male_last_names_align(people, families):
+    errors = []
+    for family in families:
+        if ('HUSB' in families[family]):
+            if (families[family]['HUSB'] in people):
+                fatherid = families[family]['HUSB']
+                male_ln = get_last_name(fatherid, people)
+                if('CHIL' in families[family]):
+                    for child in families[family]['CHIL']:
+                        if (child in people):
+                            if ('SEX' in people[child]):
+                                if (people[child]['SEX'] == 'M'):
+                                    if (get_last_name(child,people) != male_ln):
+                                        errors.append("ERROR: FAMILY: US16: " + family + " | " + fatherid + " & " + child
+                                        + ": Father's last name '" + male_ln + "' does not match son's '" + get_last_name(child,people) + "'")
+    if (errors != []):
+        return errors
+    return True
 
 
 def noChildMarry(families):
@@ -131,48 +151,58 @@ def listDeceased(people):
 def noSiblingMarriage(families):
     errors = []
     for family in families:
-        husbandID = families[family]['HUSB']
-        wifeID = families[family]['WIFE']
-        for fam in families:
-            if 'CHIL' in families[fam]:
-                if (husbandID in families[fam]['CHIL'] and wifeID in families[fam]['CHIL']):
-                    errors.append("ERROR: FAMILY: US18: " + husbandID + " & " + wifeID + ": Siblings cannot be married")
+        if (('HUSB' in families[family]) and ('WIFE' in families[family])):
+            husbandID = families[family]['HUSB']
+            wifeID = families[family]['WIFE']
+            for fam in families:
+                if 'CHIL' in families[fam]:
+                    if (husbandID in families[fam]['CHIL'] and wifeID in families[fam]['CHIL']):
+                        errors.append("ERROR: FAMILY: US18: " + husbandID + " & " + wifeID + ": Siblings cannot be married")
     return errors
 
 def correctGender(families, people):
     errors = []
     for family in families:
-        husbandID = families[family]['HUSB']
-        wifeID = families[family]['WIFE']
-        if (people[husbandID]['SEX'] != 'M'):
-            errors.append("ERROR: FAMILY: US21: " + husbandID + ": Gender of Father is Female")
-        if (people[wifeID]['SEX'] != 'F'):
-            errors.append("ERROR: FAMILY: US21: " + wifeID + ": Gender of Mother is Male")
+        if (('HUSB' in families[family]) and ('WIFE' in families[family])):
+            husbandID = families[family]['HUSB']
+            wifeID = families[family]['WIFE']
+            if (husbandID in people):
+                if ('SEX' in people[husbandID]):
+                    if (people[husbandID]['SEX'] != 'M'):
+                        errors.append("ERROR: FAMILY: US21: " + family + " & " + husbandID + ": Gender of Father is Female")
+            if (wifeID in people):
+                if ('SEX' in people[wifeID]):
+                    if (people[wifeID]['SEX'] != 'F'):
+                        errors.append("ERROR: FAMILY: US21: " + family + " & " + wifeID + ": Gender of Mother is Male")
     return errors
 
 
 def noNieceNephewMarriage(families):
     errors = []
     for f in families:
-        husbandID = families[f]['HUSB']
-        wifeID = families[f]['WIFE']
-        for fam in families:
-            if ('CHIL' in families[fam]):
-                nntype = None
-                if (husbandID in families[fam]['CHIL']):
-                    nntype = "nephew"
-                if (wifeID in families[fam]['CHIL']):
-                    nntype = "niece"
-                if (nntype != None):
-                    father = families[fam]['HUSB']
-                    mother = families[fam]['WIFE']
-                    for family in families:
-                        if ('CHIL' in families[family]):
-                            if ((father in families[family]['CHIL']) or (mother in families[family]['CHIL'])):
-                                if ((nntype == "nephew") and (wifeID in families[family]['CHIL'])):
-                                    errors.append("ERROR: FAMILY: US20: " + wifeID + " & " + husbandID + ": Aunts and nephews cannot be married.")
-                                if ((nntype == "niece") and (husbandID in families[family]['CHIL'])):
-                                    errors.append("ERROR: FAMILY: US20: " + husbandID + " & " + wifeID + ": Uncles and nieces cannot be married.")
+        if (('HUSB' in families[f]) and ('WIFE' in families[f])):
+            husbandID = families[f]['HUSB']
+            wifeID = families[f]['WIFE']
+            for fam in families:
+                if ('CHIL' in families[fam]):
+                    nntype = None
+                    if (husbandID in families[fam]['CHIL']):
+                        nntype = "nephew"
+                    if (wifeID in families[fam]['CHIL']):
+                        nntype = "niece"
+                    if (nntype != None):
+                        father, mother = None, None
+                        if ('HUSB' in families[fam]):
+                            father = families[fam]['HUSB']
+                        if ('WIFE' in families[fam]):
+                            mother = families[fam]['WIFE']
+                        for family in families:
+                            if ('CHIL' in families[family]):
+                                if ((father in families[family]['CHIL']) or (mother in families[family]['CHIL'])):
+                                    if ((nntype == "nephew") and (wifeID in families[family]['CHIL'])):
+                                        errors.append("ERROR: FAMILY: US20: " + wifeID + " & " + husbandID + ": Aunts and nephews cannot be married.")
+                                    if ((nntype == "niece") and (husbandID in families[family]['CHIL'])):
+                                        errors.append("ERROR: FAMILY: US20: " + husbandID + " & " + wifeID + ": Uncles and nieces cannot be married.")
     if(errors != None):
         return errors
     else:
@@ -182,31 +212,36 @@ def noNieceNephewMarriage(families):
 def noCousinMarriage(families):
     errors = []
     for f in families:
-        husbandID = families[f]['HUSB']
-        wifeID = families[f]['WIFE']
-        husbMom, husbDad, wifeMom, wifeDad = None, None, None, None
-        for fam in families:
-            if ('CHIL' in families[fam]):
-                if (husbandID in families[fam]['CHIL']):
-                    husbMom = families[fam]['WIFE']
-                    husbDad = families[fam]['HUSB']
-                if (wifeID in families[fam]['CHIL']):
-                    wifeMom = families[fam]['WIFE']
-                    wifeDad = families[fam]['HUSB']
-        for family in families:
-            if ('CHIL' in families[family]):
-                if ((husbMom != None) and (wifeMom != None)):
-                    if((husbMom in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
-                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
-                if ((husbMom != None) and (wifeDad != None)):
-                    if((husbMom in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
-                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
-                if ((husbDad != None) and (wifeMom != None)):
-                    if((husbDad in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
-                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
-                if ((husbDad != None) and (wifeDad != None)):
-                    if((husbDad in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
-                        errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+        if (('HUSB' in families[f]) and ('WIFE' in families[f])):
+            husbandID = families[f]['HUSB']
+            wifeID = families[f]['WIFE']
+            husbMom, husbDad, wifeMom, wifeDad = None, None, None, None
+            for fam in families:
+                if ('CHIL' in families[fam]):
+                    if (husbandID in families[fam]['CHIL']):
+                        if ('WIFE' in families[fam]):
+                            husbMom = families[fam]['WIFE']
+                        if ('HUSB' in families[fam]):
+                            husbDad = families[fam]['HUSB']
+                    if (wifeID in families[fam]['CHIL']):
+                        if ('WIFE' in families[fam]):
+                            wifeMom = families[fam]['WIFE']
+                        if ('HUSB' in families[fam]):
+                            wifeDad = families[fam]['HUSB']
+            for family in families:
+                if ('CHIL' in families[family]):
+                    if ((husbMom != None) and (wifeMom != None)):
+                        if((husbMom in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
+                            errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                    if ((husbMom != None) and (wifeDad != None)):
+                        if((husbMom in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
+                            errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                    if ((husbDad != None) and (wifeMom != None)):
+                        if((husbDad in families[family]['CHIL']) and (wifeMom in families[family]['CHIL'])):
+                            errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
+                    if ((husbDad != None) and (wifeDad != None)):
+                        if((husbDad in families[family]['CHIL']) and (wifeDad in families[family]['CHIL'])):
+                            errors.append("ERROR: FAMILY: US19: " + husbandID + " & " + wifeID + ": First cousins cannot be married.")
     if(errors != []):
         return errors
     else:
