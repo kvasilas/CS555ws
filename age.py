@@ -4,7 +4,7 @@ def calc_ages(people): #runs on whole dictionary
     today = datetime.now()
     for key in people:
         err = validateDates(key, people) # check that the dates are valid
-        print(err)
+        # print(err)
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
                 people[key]['ALIVE'] = True

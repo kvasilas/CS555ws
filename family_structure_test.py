@@ -17,20 +17,26 @@ class TestFamStruct(unittest.TestCase):
         self.assertNotEqual(ListLivingSingle(people), [])
 
     def test_fiveLessBirths(self):
-        people, families = read_file('/test_case.ged')
+        people, families = read_file('./test_case.ged')
         self.assertIn("ERROR", fiveLessBirths(people, families))
 
     def test_fifteenLessSiblings(self):
-        people, families = read_file('/test_case.ged')
+        people, families = read_file('./test_case.ged')
         self.assertIn("ERROR", fifteenLessSiblings(families))
 
     def test_noChildMarry(self):
-        people, families = read_file('/test_case.ged')
+        people, families = read_file('./test_case.ged')
         self.assertIn("ERROR", noChildMarry(families))
 
-    def test_uniqueFamilyIDs(self):
-        people, families = read_file('/test_case.ged')
-        self.assertIn("ERROR", uniqueFamilyIDs(families))
+    def test_uniqueFirst(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn("ERROR", uniqueFirst(families))
+
+    def test_uniqueFam(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn("ERROR", uniqueFirst(people, families))
 
 if __name__ == '__main__':
     unittest.main()
