@@ -4,7 +4,7 @@ def calc_ages(people): #runs on whole dictionary
     today = datetime.now()
     for key in people:
         err = validateDates(key, people) # check that the dates are valid
-        print(err)
+        # print(err)
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
                 people[key]['ALIVE'] = True
@@ -123,23 +123,23 @@ def div_b4_death(key, people):
 
 def convertFamiliesToDT(families):   # Converts each family date to datetime
     for family in families:
-        families[family]['MARR'] = datetime.strptime(families[family]['MARR'], '%d %b %Y')
+        if 'MARR' in families[family]:
+            families[family]['MARR'] = datetime.strptime(families[family]['MARR'], '%d %b %Y')
         if 'DIV' in families[family]:
             families[family]['DIV'] = datetime.strptime(families[family]['DIV'], '%d %b %Y')
     return families
 
 def datesBeforeCurrent(people, families):
     today = datetime.now()
-    people = calc_ages(people)
     families = convertFamiliesToDT(families)
     for person in people:
-        if people[person]['BIRT'] > today:
+        if people[person].get('BIRT', today) > today:
             return "ERROR: INDIVIDUAL: US01 {} has a birthday ({}) after today".format(person, people[person]['BIRT'])
         if "DEAT" in people[person]:
             if people[person]["DEAT"] > today:
                 return "ERROR: INDIVIDUAL: US01 {} has died ({}) after today".format(person, people[person]['DEAT'])
     for family in families:
-        if families[family]['MARR'] > today:
+        if families[family].get('MARR', today) > today:
             return "ERROR: FAMILY: US01 {} family has a marriage ({}) after today".format(family, families[family]['MARR'])
         if "DIV" in families[family]:
             if families[family]["DIV"] > today:
