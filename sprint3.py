@@ -16,7 +16,6 @@ print("US31 - List living Single over 30: ", family_structure_test.test_ListLivi
 print('\n##########################################################################\n')
 
 
-
 #RT User Stories
 print("RT user stories US19 & US20")
 people, families = tag.read_file('./sprint3/rtSprint3.ged')
@@ -29,7 +28,6 @@ family_structure_test.noNieceNephewMarriageTest(families)
 print('\n##########################################################################\n')
 
 
-
 # JD User Stories
 print('JD User Stories 24 & 25')
 people, families = tag.read_file('./sprint3/jd_sprint3.ged')
@@ -40,7 +38,6 @@ print(family_structure_test.test_unique_fam(people, families))
 # US25
 print(family_structure_test.test_unique_first(people, families))
 print('\n##########################################################################\n')
-
 
 
 # JT User Stories

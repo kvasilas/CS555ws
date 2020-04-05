@@ -9,16 +9,22 @@ def get_vals(curr_dict, people, families, header):
     for key in my_dict:
         if header in my_dict[key].keys():
             if(header == 'WIFE' or header == 'HUSB'):
-                my_list.append(my_dict[key][header]+' ' +people[my_dict[key][header]]['NAME'])
+                tmp_append = my_dict[key][header]
+                ind_id = people.get(my_dict[key][header], None)
+                if ind_id != None:
+                    ind_id = ind_id.get("NAME", "N/A")
+                else:
+                    ind_id = "N/A"
+                my_list.append(str(tmp_append) + " " + ind_id)
             else:
                 my_list.append(my_dict[key][header])
         elif(header == 'SPOUSE'):
             count = 0
             for fam in families:
-                if(my_dict[key]['ID'] == families[fam]['HUSB']):
+                if (my_dict[key]['ID'] == families[fam].get('HUSB', False)):
                     my_list.append(families[fam]['WIFE'])
                     break
-                elif(my_dict[key]['ID'] == families[fam]['WIFE']):
+                elif (my_dict[key]['ID'] == families[fam].get('WIFE', False)):
                     my_list.append(families[fam]['HUSB'])
                     break
                 else:
@@ -29,7 +35,7 @@ def get_vals(curr_dict, people, families, header):
         elif(header == 'CHILD'):
             count=0
             for fam in families:
-                if(my_dict[key]['ID'] == families[fam]['HUSB'] or my_dict[key]['ID'] == families[fam]['WIFE']):
+                if(my_dict[key]['ID'] == families[fam].get('HUSB', False) or my_dict[key]['ID'] == families[fam].get('WIFE', False)):
                     if 'CHIL' in families[fam].keys():
                         my_list.append(families[fam]['CHIL'])
                     else:

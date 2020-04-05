@@ -3,14 +3,15 @@ from datetime import timedelta, datetime
 def calc_ages(people): #runs on whole dictionary
     today = datetime.now()
     for key in people:
-        validateDates(key, people) # check that the dates are valid
+        err = validateDates(key, people) # check that the dates are valid
+        print(err)
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
                 people[key]['ALIVE'] = True
                 try:
                     bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
                 except:
-                    exit("ERROR: FAMILY: US22: Family ID is not unique")
+                    Warning("ERROR: FAMILY: US22: Family ID is not unique")
                 people[key]['BIRT'] = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
                 people[key]['AGE'] = int((today - bday).days/365.2425)
             else:
@@ -59,33 +60,32 @@ def marr_and_div_ages(families, people): #runs on whole dictionary
                 div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
                 people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
                 people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-            
-            # if ('DIV' in people[families[key]['HUSB']].keys() or 'DIV' in people[families[key]['WIFE']].keys()):
-            #     div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
-            #     people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-            #     people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-            #print(marr_date)
             try:
                 people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
             except:
-                exit("ERROR: INDIVIDUAL: US22: ID is not unique ")
+                Warning("ERROR: INDIVIDUAL: US22: ID is not unique ")
 
             try:
                 people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
             except:
-                exit("ERROR: INDIVIDUAL: US22: Individual ID is not unique ")
+                Warning("ERROR: INDIVIDUAL: US22: Individual ID is not unique ")
     return(people)
-#HERE
-def div_age():
-    pass
-#kc sprint 1 birth before marrage | birth before death
 
 def check_birth_before_marr(key, people):
     if(people[key]['MARR_AGE'] < 0):
         people[key]['MARR_AGE'] = "INVALID"
-        return("ERROR: Invalid Marrage date, married before birth")
+        return("ERROR: US02: "+people[key]["NAME"]+" Married before birth")
     else:
         return("Marrage date valid")
+
+def check_birth_before_death(key, people):
+    if('BIRT' in people[key].keys()):
+        if('Death' in people[key].keys()):
+            if('AGE' in people[key].keys()):
+                if(people[key]['AGE'] < 0):
+                    return("ERROR: US03: "+people[key]["NAME"]+" Birth Before Death")
+                else:
+                    return(key+"PASS Birth Before Death")
 
 def store_ages(families, people):
     people = calc_ages(people)
@@ -97,15 +97,15 @@ def less_than_one_fifty(key, people):
     # birth for dead people, and current date should be less 
     # than 150 years after birth for all living people
     if(death_age(key, people) >= 150):
-        return "Death Age Invalid"
+        return("ERROR: US07: DEATH AGE INVALID" + people[key]['ID'])
     if(get_age(key, people) >= 150):
-        return "Current Age Invalid"
+        return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
     
 def marrige_after_fourteen(key, people):
     # Ticket US10 - Marriage should be at least 14 years after birth 
     # of both spouses (parents must be at least 14 years old)
     if(people[key]['MARR_AGE'] <= 14):
-        return "Marrige under the age of 14 is invalid"
+        return("ERROR: US10: Marrige under the age of 14 is invalid: " + people[key]['ID'])
 
 
 def mar_b4_death(key, people):
@@ -160,15 +160,18 @@ def validateDates(person, people):
         try:
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
-            exit("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID'])
+            Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
+            return "ERROR"
     else:
         try:
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
-            exit("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: " + people[person]['ID'])
+            Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: " + people[person]['ID'])
+            return "ERROR"
         try:
             _ = datetime.strptime(people[person]['DEAT'], '%d %b %Y')
         except:
-            exit("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Death Date for person: " + people[person]['ID'])
-    return 
+            Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Death Date for person: " + people[person]['ID'])
+            return "ERROR"
+    return "OK"
 
