@@ -21,6 +21,22 @@ print(age.datesBeforeCurrent(people, families))
 print(family_structure.uniqueFam(people, families))
 print(family_structure.uniqueFirst(people, families))
 
+
+# JT User Stories
+# Sprint 1
+for person in people:
+    print(age.less_than_one_fifty(person, people))
+for person in people:
+    print(age.marrige_after_fourteen(person, people))
+# Sprint 2
+print(family_structure.uniqueIndividualIDs(people))
+print(family_structure.uniqueFamilyIDs(families))
+print(family_structure.listDeceased)
+# Sprint 3
+print(age.listRecentBirths(people))
+for person in people:
+    print(age.validateDates(person, people))
+
 # #KV User Stories
 # #US30 -List living married
 # #US31 -List living single
