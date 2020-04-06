@@ -4,7 +4,7 @@ import copy
 def calc_ages(people): #runs on whole dictionary
     today = datetime.now()
     for key in people:
-        err = validateDates(key, people) # check that the dates are valid
+        _ = validateDates(key, people) # check that the dates are valid
         # print(err)
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
@@ -101,8 +101,9 @@ def less_than_one_fifty(key, people):
         if(death_age(key, people) >= 150):
             return("ERROR: US07: DEATH AGE INVALID" + people[key]['ID'])
     if(is_dead(key, people) is False):
-        if(get_age(key, people) >= 150):
-            return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
+        if('AGE' in people[key].keys()):
+            if(get_age(key, people) >= 150):
+                return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
     
 def marrige_after_fourteen(key, people):
     # Ticket US10 - Marriage should be at least 14 years after birth 
@@ -117,8 +118,6 @@ def marrige_after_fourteen(key, people):
 def mar_b4_death(key, people):
     if(people[key]['MARR_AGE'] > people[key]['AGE']):
         return "ERROR: INDIVIDUAL: US05 Person '{}' was married after their death".format(key)
-    else:
-        return ""
 
 
 def div_b4_death(key, people):
@@ -169,17 +168,16 @@ def validateDates(person, people):
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
             Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
-            return "ERROR"
+            return("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
     else:
         try:
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
             Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: " + people[person]['ID'])
-            return "ERROR"
+            return("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
         try:
             _ = datetime.strptime(people[person]['DEAT'], '%d %b %Y')
         except:
             Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Death Date for person: " + people[person]['ID'])
-            return "ERROR"
-    return "OK"
+            return("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
 
