@@ -121,18 +121,18 @@ def getMotherChildren(families):
 def uniqueIndividualIDs(people):
     bv = defaultdict(int)
     for individual in people:
-        print(people[individual]['ID'])
+        #print(people[individual]['ID'])
         bv[people[individual]['ID']] += 1 
     for i in bv:
         if bv[i] > 1:
             return ("ERROR: INDIVIDUAL: US22: ID is not unique " + i)
-    return "All ID's are unique"
+    return "All Individual ID's are unique"
 
 
 def uniqueFamilyIDs(families):
     bv = defaultdict(int)
     for family in families:
-        print(families[family]['ID'])
+        #print(families[family]['ID'])
         bv[families[family]['ID']] += 1 
     for i in bv:
         if bv[i] > 1:
