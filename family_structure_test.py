@@ -8,12 +8,12 @@ from make_table import print_tables
 class TestFamStruct(unittest.TestCase):
 
     def test_ListLivingMarried(self):
-        people, families = read_file('../sprint3/kv_sprint3.ged')
+        people, families = read_file('./sprint3/kv_sprint3.ged')
         people = store_ages(families, people)
         self.assertNotEqual(ListLivingMarried(people), [])
 
     def test_ListLivingSingle(self):
-        people, families = read_file('../sprint3/kv_sprint3.ged')
+        people, families = read_file('./sprint3/kv_sprint3.ged')
         people = store_ages(families, people)
         self.assertNotEqual(ListLivingSingle(people), [])
 
