@@ -96,10 +96,10 @@ def less_than_one_fifty(key, people):
     # Ticket US07 - Death should be less than 150 years after 
     # birth for dead people, and current date should be less 
     # than 150 years after birth for all living people
-    if(is_dead is True):
+    if(is_dead(key, people) is True):
         if(death_age(key, people) >= 150):
             return("ERROR: US07: DEATH AGE INVALID" + people[key]['ID'])
-    if(is_dead is False):
+    if(is_dead(key, people) is False):
         if(get_age(key, people) >= 150):
             return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
     
