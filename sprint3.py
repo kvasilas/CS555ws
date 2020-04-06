@@ -10,6 +10,8 @@ people, families = tag.read_file('./test_case.ged')
 people = age.store_ages(families, people)
 print_tables(families, people)
 
+####Error Message Prints###
+print("\nGEDCOM File Errors:")
 
 # JD User Stories
 # Sprint 1
@@ -51,17 +53,60 @@ for person in people:
     x = age.marrige_after_fourteen(person, people)
     if (x != None):
         print(x)
+#Sprint 3
+#This needs to be fixed - the print statement works but the function is not feeding correctly so it just prints a ton of lines that just say "ERROR"
+#for person in people:
+#    x = age.validateDates(person, people)
+#    if (x != None):
+#        print(x)
+
+
+# KV User Stories
+
+
+
+
+
+####Information User story demonstrations###
+print("\nUser Story Demonstrations:")
+
+# JT User Stories
 # Sprint 2
 print(family_structure.uniqueIndividualIDs(people))
 print(family_structure.uniqueFamilyIDs(families))
-print(family_structure.listDeceased)
+print("List of deceased people: ", family_structure.listDeceased(people))
 # Sprint 3
-print(age.listRecentBirths(people))
-for person in people:
-    x = age.validateDates(person, people)
-    if (x != None):
-        print(x)
+print("List of recent births: ", age.listRecentBirths(people))
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###Old stuff###
 
 # #KV User Stories
 # #US30 -List living married
