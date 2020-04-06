@@ -10,6 +10,7 @@ people, families = tag.read_file('./test_case.ged')
 people = age.store_ages(families, people)
 print_tables(families, people)
 
+
 # JD User Stories
 # Sprint 1
 print(family_structure.fiveLessBirths(people, families))
@@ -20,6 +21,24 @@ print(age.datesBeforeCurrent(people, families))
 # Sprint 3
 print(family_structure.uniqueFam(people, families))
 print(family_structure.uniqueFirst(people, families))
+
+
+# RT User Stories
+# Sprint 1
+for x in family_structure.parents_not_too_old(people, families):
+    print(x)
+for x in family_structure.male_last_names_align(people, families):
+    print(x)
+# Sprint 2
+for x in family_structure.noSiblingMarriage(families):
+    print(x)
+for x in family_structure.correctGender(families, people):
+    print(x)
+# Sprint 3
+for x in family_structure.noCousinMarriage(families):
+    print(x)
+for x in family_structure.noNieceNephewMarriage(families):
+    print(x)
 
 
 # JT User Stories
@@ -36,6 +55,7 @@ print(family_structure.listDeceased)
 print(age.listRecentBirths(people))
 for person in people:
     print(age.validateDates(person, people))
+
 
 # #KV User Stories
 # #US30 -List living married
