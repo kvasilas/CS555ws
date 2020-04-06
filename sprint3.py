@@ -44,9 +44,13 @@ for x in family_structure.noNieceNephewMarriage(families):
 # JT User Stories
 # Sprint 1
 for person in people:
-    print(age.less_than_one_fifty(person, people))
+    x = age.less_than_one_fifty(person, people)
+    if (x != None):
+        print(x)
 for person in people:
-    print(age.marrige_after_fourteen(person, people))
+    x = age.marrige_after_fourteen(person, people)
+    if (x != None):
+        print(x)
 # Sprint 2
 print(family_structure.uniqueIndividualIDs(people))
 print(family_structure.uniqueFamilyIDs(families))
@@ -54,7 +58,9 @@ print(family_structure.listDeceased)
 # Sprint 3
 print(age.listRecentBirths(people))
 for person in people:
-    print(age.validateDates(person, people))
+    x = age.validateDates(person, people)
+    if (x != None):
+        print(x)
 
 
 # #KV User Stories
