@@ -96,16 +96,21 @@ def less_than_one_fifty(key, people):
     # Ticket US07 - Death should be less than 150 years after 
     # birth for dead people, and current date should be less 
     # than 150 years after birth for all living people
-    if(death_age(key, people) >= 150):
-        return("ERROR: US07: DEATH AGE INVALID" + people[key]['ID'])
-    if(get_age(key, people) >= 150):
-        return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
+    if(is_dead is True):
+        if(death_age(key, people) >= 150):
+            return("ERROR: US07: DEATH AGE INVALID" + people[key]['ID'])
+    if(is_dead is False):
+        if(get_age(key, people) >= 150):
+            return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
     
 def marrige_after_fourteen(key, people):
     # Ticket US10 - Marriage should be at least 14 years after birth 
     # of both spouses (parents must be at least 14 years old)
-    if(people[key]['MARR_AGE'] <= 14):
-        return("ERROR: US10: Marrige under the age of 14 is invalid: " + people[key]['ID'])
+    if('MARR_AGE' in people[key].keys()):
+        if(people[key]['MARR_AGE'] <= 14):
+            return("ERROR: US10: Marrige under the age of 14 is invalid: " + people[key]['ID'])
+    else:
+        return 
 
 
 def mar_b4_death(key, people):
@@ -149,10 +154,11 @@ def listRecentBirths(people):
     thirtyDaysAgo = datetime.now() - timedelta(30)
     newly_borns = []
     for person in people:
-        if people[person]['BIRT'] > thirtyDaysAgo:
-            newly_borns.append(people[person]['NAME'])
-        else:
-            continue
+        if('BIRT' in people[person].keys()):  
+            if people[person]['BIRT'] > thirtyDaysAgo:
+                newly_borns.append(people[person]['NAME'])
+            else:
+                continue
     return newly_borns
 
 def validateDates(person, people):
