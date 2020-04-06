@@ -97,10 +97,10 @@ def less_than_one_fifty(key, people):
     # Ticket US07 - Death should be less than 150 years after 
     # birth for dead people, and current date should be less 
     # than 150 years after birth for all living people
-    if(is_dead is True):
+    if(is_dead(key, people) is True):
         if(death_age(key, people) >= 150):
             return("ERROR: US07: DEATH AGE INVALID" + people[key]['ID'])
-    if(is_dead is False):
+    if(is_dead(key, people) is False):
         if(get_age(key, people) >= 150):
             return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
     
@@ -109,7 +109,7 @@ def marrige_after_fourteen(key, people):
     # of both spouses (parents must be at least 14 years old)
     if('MARR_AGE' in people[key].keys()):
         if(people[key]['MARR_AGE'] <= 14):
-            return("ERROR: US10: Marrige under the age of 14 is invalid: " + people[key]['ID'])
+            return("ERROR: INDIVIDUAL: US10: Marrige under the age of 14 is invalid: " + people[key]['ID'])
     else:
         return 
 
