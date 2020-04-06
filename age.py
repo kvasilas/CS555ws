@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+import copy
 
 def calc_ages(people): #runs on whole dictionary
     today = datetime.now()
@@ -127,27 +128,28 @@ def div_b4_death(key, people):
         return ""
 
 def convertFamiliesToDT(families):   # Converts each family date to datetime
-    for family in families:
-        if 'MARR' in families[family]:
-            families[family]['MARR'] = datetime.strptime(families[family]['MARR'], '%d %b %Y')
-        if 'DIV' in families[family]:
-            families[family]['DIV'] = datetime.strptime(families[family]['DIV'], '%d %b %Y')
-    return families
+    familiesDT = copy.deepcopy(families)
+    for family in familiesDT:
+        if 'MARR' in familiesDT[family]:
+            familiesDT[family]['MARR'] = datetime.strptime(familiesDT[family]['MARR'], '%d %b %Y')
+        if 'DIV' in familiesDT[family]:
+            familiesDT[family]['DIV'] = datetime.strptime(familiesDT[family]['DIV'], '%d %b %Y')
+    return familiesDT
 
 def datesBeforeCurrent(people, families):
     today = datetime.now()
-    families = convertFamiliesToDT(families)
+    families_dict = convertFamiliesToDT(families)
     for person in people:
         if people[person].get('BIRT', today) > today:
             return "ERROR: INDIVIDUAL: US01 {} has a birthday ({}) after today".format(person, people[person]['BIRT'])
         if "DEAT" in people[person]:
             if people[person]["DEAT"] > today:
                 return "ERROR: INDIVIDUAL: US01 {} has died ({}) after today".format(person, people[person]['DEAT'])
-    for family in families:
-        if families[family].get('MARR', today) > today:
+    for family in families_dict:
+        if families_dict[family].get('MARR', today) > today:
             return "ERROR: FAMILY: US01 {} family has a marriage ({}) after today".format(family, families[family]['MARR'])
-        if "DIV" in families[family]:
-            if families[family]["DIV"] > today:
+        if "DIV" in families_dict[family]:
+            if families_dict[family]["DIV"] > today:
                 return "ERROR: FAMILY: US01 {} family has a divorce ({}) after today".format(family, families[family]['DIV'])
 
 def listRecentBirths(people):
