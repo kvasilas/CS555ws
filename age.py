@@ -108,7 +108,7 @@ def marrige_after_fourteen(key, people):
     # of both spouses (parents must be at least 14 years old)
     if('MARR_AGE' in people[key].keys()):
         if(people[key]['MARR_AGE'] <= 14):
-            return("ERROR: US10: Marrige under the age of 14 is invalid: " + people[key]['ID'])
+            return("ERROR: INDIVIDUAL: US10: Marrige under the age of 14 is invalid: " + people[key]['ID'])
     else:
         return 
 
