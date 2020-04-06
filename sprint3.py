@@ -21,6 +21,25 @@ print(age.datesBeforeCurrent(people, families))
 print(family_structure.uniqueFam(people, families))
 print(family_structure.uniqueFirst(people, families))
 
+
+# RT User Stories
+# Sprint 1
+for x in family_structure.parents_not_too_old(people, families):
+    print(x)
+for x in family_structure.male_last_names_align(people, families):
+    print(x)
+# Sprint 2
+for x in family_structure.noSiblingMarriage(families):
+    print(x)
+for x in family_structure.correctGender(families, people):
+    print(x)
+# Sprint 3
+for x in family_structure.noCousinMarriage(families):
+    print(x)
+for x in family_structure.noNieceNephewMarriage(families):
+    print(x)
+
+
 # #KV User Stories
 # #US30 -List living married
 # #US31 -List living single
