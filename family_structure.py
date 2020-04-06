@@ -22,7 +22,7 @@ def fiveLessBirths(people, families):   # Determines whether more than five sibl
                     dict_of_dates[people[child]['BIRT']] = [child]
         for date in dict_of_dates:
             if len(dict_of_dates[date]) > 5:   # check for number of coincident births
-                return "ERROR: FAMILY: US14: {} all have than same birth in family {} - [NOT] fewer than five births".format(dict_of_dates[date], fam_id)
+                return "ERROR: FAMILY: US14: {} all have the same birthday in family {} - [NOT] fewer than five births".format(dict_of_dates[date], fam_id)
     return True
 
 
@@ -121,18 +121,18 @@ def getMotherChildren(families):
 def uniqueIndividualIDs(people):
     bv = defaultdict(int)
     for individual in people:
-        print(people[individual]['ID'])
+        #print(people[individual]['ID'])
         bv[people[individual]['ID']] += 1 
     for i in bv:
         if bv[i] > 1:
             return ("ERROR: INDIVIDUAL: US22: ID is not unique " + i)
-    return "All ID's are unique"
+    return "All Individual ID's are unique"
 
 
 def uniqueFamilyIDs(families):
     bv = defaultdict(int)
     for family in families:
-        print(families[family]['ID'])
+        #print(families[family]['ID'])
         bv[families[family]['ID']] += 1 
     for i in bv:
         if bv[i] > 1:
@@ -260,7 +260,6 @@ def uniqueFam(people, families):   # US24
         if wife:
             wife = wife.get('NAME', False)
         marr = families[famID].get('MARR', False)
-        marr = marr.strftime("%m/%d/%Y")
         if not husb or not wife or not marr:
             continue
         key_string = husb + wife + marr
