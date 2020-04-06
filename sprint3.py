@@ -107,7 +107,10 @@ print("List of recent births: ", age.listRecentBirths(people))
 
 
 
+<<<<<<< HEAD
 ###Old stuff###
+=======
+>>>>>>> 30aa343ff1892d628a2b0f4faf922ff8797468b0
 
 # #KV User Stories
 # #US30 -List living married
