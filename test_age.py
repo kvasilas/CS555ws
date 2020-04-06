@@ -44,6 +44,14 @@ class TestAge(unittest.TestCase):
         for person in people:
             self.assertIn('ERROR', validateDates(person, people))
 
+<<<<<<< HEAD
+=======
+    def test_datesBeforeCurrent(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn("ERROR", datesBeforeCurrent(people, families))
+
+>>>>>>> upstream/master
 if __name__ == '__main__':
     unittest.main()
 
