@@ -3,6 +3,7 @@ import unittest
 from family_structure import *
 from tag_parse import *
 from age import *
+from make_table import print_tables
 
 class TestFamStruct(unittest.TestCase):
 
@@ -31,15 +32,49 @@ class TestFamStruct(unittest.TestCase):
     def test_uniqueFirst(self):
         people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
-        self.assertIn("ERROR", uniqueFirst(families))
+        self.assertIn("ERROR", uniqueFirst(people, families))
 
     def test_uniqueFam(self):
         people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
-        self.assertIn("ERROR", uniqueFirst(people, families))
+        self.assertIn("ERROR", uniqueFam(people, families))
+    
+    def test_cousinMarriage(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(True, noCousinMarriage(families))
+    
+    def test_nieceNephewMarriage(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(True, noNieceNephewMarriage(families))
+    
+    def test_siblingMarriage(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual([], noSiblingMarriage(families))
+    
+    def test_correctGender(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual([], correctGender(families, people))
+    
+    def test_parentAge(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(True, parents_not_too_old(people, families))
+    
+    def test_maleNames(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(True, male_last_names_align(people, families))
 
 if __name__ == '__main__':
     unittest.main()
+
+
+
+
 
 # def fiveLessBirthsTest(people, families):
 #     if family_structure.fiveLessBirths(people, families) == "More than five siblings were born on the same day":
