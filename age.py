@@ -20,10 +20,11 @@ def calc_ages(people): #runs on whole dictionary
                 people[key]['ALIVE'] = False
                 age = death_age(key, people)
                 people[key]['AGE'] = age
-                if(age < 0): #death before birth
-                    print("ERROR: Invalid death date, death before birth")
-                else:
-                    people[key]['AGE']= age
+                # if(age < 0): #death before birth
+                #     print("ERROR: Invalid death date, death before birth")
+                # else:
+                #     people[key]['AGE']= age
+                
     return people
 
 def is_dead(key, people): #by person
