@@ -15,25 +15,25 @@ class TestAge(unittest.TestCase):
         self.assertIn('ERROR', marrige_after_fourteen('@I1JT01@', people))
 
     def test_birth_b4_marr(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
             self.assertEqual(check_birth_before_marr(key, people), 'ERROR')
 
     def test_birth_b4_death(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
             self.assertEqual(check_birth_before_death(key, people), 'ERROR')
 
     def test_mar_b4_death(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
             self.assertEqual(mar_b4_death(key, people), 'ERROR')
     
     def test_div_b4_death(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
             self.assertEqual(div_b4_death(key, people), 'ERROR')

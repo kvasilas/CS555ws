@@ -61,6 +61,28 @@ for person in people:
 
 
 # KV User Stories
+##sprint 1
+#US02
+for key in people:
+    x = age.check_birth_before_marr(key, people)
+    if("ERROR" in x):
+        print(x)
+#US03
+for key in people:
+    x = age.check_birth_before_death(key, people)
+    if("ERROR" in x):
+        print(x)
+##sprint 2
+#US05
+for key in people:
+    x = age.mar_b4_death(key, people)
+    if("ERROR" in x):
+        print(x)
+#US06
+for key in people:
+    x = age.mar_b4_death(key, people)
+    if("ERROR" in x):
+        print(x)
 
 
 
@@ -76,7 +98,14 @@ print(family_structure.uniqueFamilyIDs(families))
 print("List of deceased people: ", family_structure.listDeceased(people))
 # Sprint 3
 print("List of recent births: ", age.listRecentBirths(people))
-
+#KV User Stories
+##sprint 3
+#US30
+resp, val = family_structure.ListLivingMarried(people)
+print(resp, val, sep=' ')
+#US31
+resp, val = family_structure.ListLivingSingle(people)
+print(resp, val, sep=' ')
 
 
 
