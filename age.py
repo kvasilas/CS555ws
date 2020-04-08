@@ -24,7 +24,6 @@ def calc_ages(people): #runs on whole dictionary
                 #     print("ERROR: Invalid death date, death before birth")
                 # else:
                 #     people[key]['AGE']= age
-                
     return people
 
 def is_dead(key, people): #by person
@@ -77,10 +76,6 @@ def check_birth_before_marr(key, people):
     if('MARR_AGE' in people[key].keys()):
         if(people[key]['MARR_AGE'] < 0):
             return("ERROR: INDIVIDUAL: US02: "+people[key]["NAME"]+" Married before birth")
-        else:
-            return("Marrage date valid")
-    else:
-        return("Not Married")
 
 def check_birth_before_death(key, people):
     if('BIRT' in people[key].keys()):
@@ -88,9 +83,6 @@ def check_birth_before_death(key, people):
             if('AGE' in people[key].keys()):
                 if(people[key]['AGE'] < 0):
                     return("ERROR: INDIVIDUAL: US03: "+people[key]["NAME"]+" Birth Before Death")
-                else:
-                    return(key+"PASS Birth Before Death")
-    return("US03: n/a")
 
 def store_ages(families, people):
     people = calc_ages(people)
@@ -123,13 +115,11 @@ def mar_b4_death(key, people):
     if('MARR_AGE' in people[key].keys() and 'AGE' in people[key].keys()):
         if(people[key]['MARR_AGE'] > people[key]['AGE']):
             return "ERROR: INDIVIDUAL: US05 Person '{}' was married after their death".format(key)
-    return('US05: n/a')
 
 def div_b4_death(key, people):
     if('DIV_AGE' in people[key].keys()):
         if(people[key]['DIV_AGE'] > people[key]['AGE']):
             return "ERROR: INDIVIDUAL: US06 Person '{}' was divorced after their death ".format(key)
-    return("US06: n/a")
 
 def convertFamiliesToDT(families):   # Converts each family date to datetime
     familiesDT = copy.deepcopy(families)

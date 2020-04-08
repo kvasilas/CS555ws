@@ -302,5 +302,5 @@ def ListLivingSingle(people):
             if('MARR_AGE' not in people[key].keys() and 'AGE' in people[key].keys()):
                 if(people[key]['AGE'] >= 30):
                     alive_single_list.append(people[key]['NAME'])
-    return('US30: List Living Single:',alive_single_list)
+    return('US31: List Living Single:',alive_single_list)
 

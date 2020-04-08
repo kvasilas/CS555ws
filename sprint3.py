@@ -65,24 +65,24 @@ for person in people:
 #US02
 for key in people:
     x = age.check_birth_before_marr(key, people)
-    if("ERROR" in x):
-        print(x)
+    if (x != None):
+       print(x)
 #US03
 for key in people:
     x = age.check_birth_before_death(key, people)
-    if("ERROR" in x):
-        print(x)
+    if (x != None):
+       print(x)
 ##sprint 2
 #US05
 for key in people:
     x = age.mar_b4_death(key, people)
-    if("ERROR" in x):
-        print(x)
+    if (x != None):
+       print(x)
 #US06
 for key in people:
-    x = age.mar_b4_death(key, people)
-    if("ERROR" in x):
-        print(x)
+    x = age.div_b4_death(key, people)
+    if (x != None):
+       print(x)
 
 
 
