@@ -131,20 +131,26 @@ def convertFamiliesToDT(families):   # Converts each family date to datetime
     return familiesDT
 
 def datesBeforeCurrent(people, families):
+    output = []
     today = datetime.now()
     families_dict = convertFamiliesToDT(families)
     for person in people:
         if people[person].get('BIRT', today) > today:
-            return "ERROR: INDIVIDUAL: US01 {} has a birthday ({}) after today".format(person, people[person]['BIRT'])
+            output.append("ERROR: INDIVIDUAL: US01 {} has a birthday ({}) after today".format(person, people[person]['BIRT']))
         if "DEAT" in people[person]:
             if people[person]["DEAT"] > today:
-                return "ERROR: INDIVIDUAL: US01 {} has died ({}) after today".format(person, people[person]['DEAT'])
+                output.append("ERROR: INDIVIDUAL: US01 {} has died ({}) after today".format(person, people[person]['DEAT']))
     for family in families_dict:
         if families_dict[family].get('MARR', today) > today:
-            return "ERROR: FAMILY: US01 {} family has a marriage ({}) after today".format(family, families[family]['MARR'])
+            output.append("ERROR: FAMILY: US01 {} family has a marriage ({}) after today".format(family, families[family]['MARR']))
         if "DIV" in families_dict[family]:
             if families_dict[family]["DIV"] > today:
-                return "ERROR: FAMILY: US01 {} family has a divorce ({}) after today".format(family, families[family]['DIV'])
+                output.append("ERROR: FAMILY: US01 {} family has a divorce ({}) after today".format(family, families[family]['DIV']))
+    result = ""
+    for line in output[:-1]:
+        result += line + "\n"
+    result += output[-1]
+    return result
 
 def listRecentBirths(people):
     thirtyDaysAgo = datetime.now() - timedelta(30)
