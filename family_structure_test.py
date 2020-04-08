@@ -3,7 +3,6 @@ import unittest
 from family_structure import *
 from tag_parse import *
 from age import *
-from make_table import print_tables
 
 class TestFamStruct(unittest.TestCase):
 
