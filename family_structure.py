@@ -8,6 +8,7 @@ from datetime import datetime
 
 def fiveLessBirths(people, families):   # Determines whether more than five siblings were born on the same date
     children = {}   # dict which will store individual lists of children by family id
+    output = []
     for fam_id in families:
         if 'CHIL' in families[fam_id]:
             children[fam_id] = families[fam_id]['CHIL']
@@ -15,23 +16,32 @@ def fiveLessBirths(people, families):   # Determines whether more than five sibl
         dict_of_dates = {}
         for child in children[fam_id]:   # iterate through each child among siblings, storing each unique birthdate as
             # key and iterating value for non unique date - US14
-            if 'BIRT' in people[child]:
+            if 'BIRT' in people.get(child, []):
                 if people[child]['BIRT'] in dict_of_dates:
                     dict_of_dates[people[child]['BIRT']].append(child)
                 else:
                     dict_of_dates[people[child]['BIRT']] = [child]
         for date in dict_of_dates:
             if len(dict_of_dates[date]) > 5:   # check for number of coincident births
-                return "ERROR: FAMILY: US14: {} all have than same birth in family {} - [NOT] fewer than five births".format(dict_of_dates[date], fam_id)
-    return True
+                output.append( "ERROR: FAMILY: US14: {} all have the same birthday in family {} - [NOT] fewer than five births".format(dict_of_dates[date], fam_id))
+    result = ""
+    for line in output[:-1]:
+        result += line + "\n"
+    result += output[-1]
+    return result
 
 
 def fifteenLessSiblings(families):   # Tests that each family has less than fifteen siblings - US15
+    output = []
     for family in families:
         if 'CHIL' in families[family]:
             if len(families[family]["CHIL"]) > 14:
-                return "ERROR: FAMILY: US15: Family {} has more than fourteen siblings".format(family)
-    return True
+                output.append("ERROR: FAMILY: US15: Family {} has more than fourteen siblings".format(family))
+    result = ""
+    for line in output[:-1]:
+        result += line + "\n"
+    result += output[-1]
+    return result
 
 
 def parents_not_too_old(people, families):
@@ -83,6 +93,7 @@ def male_last_names_align(people, families):
 
 
 def noChildMarry(families):
+    output = []
     father_dict = getFatherChildren(families)
     mother_dict = getMotherChildren(families)
 
@@ -91,10 +102,14 @@ def noChildMarry(families):
         husband = families[family].get('HUSB', None)
 
         if husband in mother_dict.get(wife, []):
-            return "ERROR: FAMILY: US17: A mother ({}) is married to her child ({})".format(wife, husband)
+            output.append("ERROR: FAMILY: US17: A mother ({}) is married to her child ({})".format(wife, husband))
         if wife in father_dict.get(husband, []):
-            return "ERROR: FAMILY: US17: A father ({}) is married to his child ({})".format(husband, wife)
-    return True
+            output.append("ERROR: FAMILY: US17: A father ({}) is married to his child ({})".format(husband, wife))
+    result = ""
+    for line in output[:-1]:
+        result += line + "\n"
+    result += output[-1]
+    return result
 
 def getFatherChildren(families):   # Returns a dictionary with key being a father and value being list of their children
     fathers = {}
@@ -249,6 +264,7 @@ def noCousinMarriage(families):
 
 
 def uniqueFam(people, families):   # US24
+    output = []
     fam_dict = {}
     for famID in families:
         husbID = families[famID].get('HUSB', None)
@@ -260,31 +276,39 @@ def uniqueFam(people, families):   # US24
         if wife:
             wife = wife.get('NAME', False)
         marr = families[famID].get('MARR', False)
-        marr = marr.strftime("%m/%d/%Y")
         if not husb or not wife or not marr:
             continue
         key_string = husb + wife + marr
 
         if key_string in fam_dict:
-            return "ERROR: FAMILY: US24: Families: " + famID + " and " + fam_dict[key_string] + " seem to be duplicates"
+            output.append("ERROR: FAMILY: US24: Families: " + famID + " and " + fam_dict[key_string] + " seem to be duplicates")
         else:
             fam_dict[key_string] = famID
-    return True
+    result = ""
+    for line in output[:-1]:
+        result += line + "\n"
+    result += output[-1]
+    return result
 
 def uniqueFirst(people, families):   # US25
+    output = []
     for familyID in families:
         fam_dict = {}
         if 'CHIL' in families[familyID]:
             for childID in families[familyID]['CHIL']:
-                if 'BIRT' not in people[childID]:
+                if 'BIRT' not in people.get(childID, []):
                     continue
                 key_string = people[childID]['NAME'] + people[childID]['BIRT'].strftime("%m/%d/%Y")
 
                 if key_string in fam_dict:
-                    return "ERROR: INDIVIDUAL: US25: " + people[childID]['NAME'] + " appears twice within familiy id: " + familyID
+                    output.append("ERROR: INDIVIDUAL: US25: " + people[childID]['NAME'] + " appears twice within familiy id: " + familyID)
                 else:
                     fam_dict[key_string] = True
-    return True
+    result = ""
+    for line in output[:-1]:
+        result += line + "\n"
+    result += output[-1]
+    return result
 
 def ListLivingMarried(people):
     alive_married_list = []
@@ -292,7 +316,7 @@ def ListLivingMarried(people):
         if not age.is_dead(key, people):  # is alive?
             if 'MARR_AGE' in people[key].keys() and 'DIV_AGE' not in people[key].keys():
                 alive_married_list.append(people[key]['NAME'])
-    return alive_married_list
+    return('US30: List Living Married:',alive_married_list)
 
 
 def ListLivingSingle(people):
@@ -300,7 +324,8 @@ def ListLivingSingle(people):
     alive_single_list = []
     for key in people:
         if not age.is_dead(key, people):  # is alive?
-            if('MARR_AGE' not in people[key].keys() and people[key]['AGE'] >= 30):
-                alive_single_list.append(people[key]['NAME'])
-    return alive_single_list
+            if('MARR_AGE' not in people[key].keys() and 'AGE' in people[key].keys()):
+                if(people[key]['AGE'] >= 30):
+                    alive_single_list.append(people[key]['NAME'])
+    return('US31: List Living Single:',alive_single_list)
 

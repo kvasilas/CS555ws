@@ -53,17 +53,50 @@ for person in people:
     x = age.marrige_after_fourteen(person, people)
     if (x != None):
         print(x)
-#Sprint 3
-#This needs to be fixed - the print statement works but the function is not feeding correctly so it just prints a ton of lines that just say "ERROR"
-#for person in people:
-#    x = age.validateDates(person, people)
-#    if (x != None):
-#        print(x)
+# Sprint 3
+for person in people:
+   x = age.validateDates(person, people)
+   if (x != None):
+       print(x)
 
 
 # KV User Stories
-
-
+##sprint 1
+#US02
+for key in people:
+    x = age.check_birth_before_marr(key, people)
+    if (x != None):
+       print(x)
+#US03
+for key in people:
+    x = age.check_birth_before_death(key, people)
+    if (x != None):
+       print(x)
+##sprint 2
+#US05
+for key in people:
+    x = age.mar_b4_death(key, people)
+    if (x != None):
+       print(x)
+#US06
+for key in people:
+    x = age.div_b4_death(key, people)
+    if (x != None):
+       print(x)
+#US08
+for fam in families:
+    if('CHIL' in families[fam].keys()):
+        for kid in families[fam]['CHIL']:
+            x = age.birth_before_marr_of_parents(kid, fam, people, families)
+            if(x):
+                print(x)
+#US09
+for fam in families:
+    if('CHIL' in families[fam].keys()):
+        for kid in families[fam]['CHIL']:
+            x = age.birth_before_death_of_parents(kid, fam, people, families)
+            if(x):
+                print(x)
 
 
 
@@ -77,6 +110,16 @@ print(family_structure.uniqueFamilyIDs(families))
 print("List of deceased people: ", family_structure.listDeceased(people))
 # Sprint 3
 print("List of recent births: ", age.listRecentBirths(people))
+#KV User Stories
+##sprint 3
+#US30
+resp, val = family_structure.ListLivingMarried(people)
+print(resp, val, sep=' ')
+#US31
+resp, val = family_structure.ListLivingSingle(people)
+print(resp, val, sep=' ')
+
+
 
 
 
