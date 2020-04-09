@@ -182,3 +182,19 @@ def validateDates(person, people):
             Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Death Date for person: " + people[person]['ID'])
             return("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
 
+def birth_before_marr_of_parents(kid,fam,people,families):
+    families = convertFamiliesToDT(families)
+    if('MARR' in families[fam].keys() and kid in people.keys() and people[kid]['BIRT'] - families[fam]['MARR'] < timedelta(days=0)):
+        return('ERROR: FAMILY: US08: '+kid+' Birth before Marriage')
+    elif('DIV' in families[fam].keys() and kid in people.keys() and people[kid]['BIRT'] - families[fam]['DIV'] > timedelta(days=90)):
+        return('ERROR: FAMILY: US08: '+kid+' Birth more than 9 months after divorce')
+    return
+
+def birth_before_death_of_parents(kid,fam,people,families):
+    if(is_dead(families[fam]['WIFE'], people) == True and kid in people.keys()):
+        if(people[kid]['BIRT'] - people[families[fam]['WIFE']]['DEAT'] > timedelta(days=0)):
+            return('ERROR: FAMILY: US09: '+kid+' Birth after death of Mother')
+    elif(is_dead(families[fam]['HUSB'], people) == True and kid in people.keys()):
+        if(people[kid]['BIRT'] - people[families[fam]['HUSB']]['DEAT'] > timedelta(days=90)):
+            return('ERROR: FAMILY: US09: '+kid+' Birth more than 9 months after death of Father')
+    return
