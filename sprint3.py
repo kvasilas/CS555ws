@@ -83,8 +83,20 @@ for key in people:
     x = age.div_b4_death(key, people)
     if (x != None):
        print(x)
-
-
+#US08
+for fam in families:
+    if('CHIL' in families[fam].keys()):
+        for kid in families[fam]['CHIL']:
+            x = age.birth_before_marr_of_parents(kid, fam, people, families)
+            if(x):
+                print(x)
+#US09
+for fam in families:
+    if('CHIL' in families[fam].keys()):
+        for kid in families[fam]['CHIL']:
+            x = age.birth_before_death_of_parents(kid, fam, people, families)
+            if(x):
+                print(x)
 
 
 

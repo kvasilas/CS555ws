@@ -49,6 +49,22 @@ class TestAge(unittest.TestCase):
         people = store_ages(families, people)
         self.assertIn("ERROR", datesBeforeCurrent(people, families))
 
+    def test_birth_before_death_of_parents(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        for fam in families:
+            if('CHIL' in families[fam].keys()):
+                for kid in families[fam]['CHIL']:
+                    self.assertIsNotNone('ERROR',birth_before_death_of_parents(kid, fam, people, families))
+
+    def test_birth_before_marr_of_parents(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        for fam in families:
+            if('CHIL' in families[fam].keys()):
+                for kid in families[fam]['CHIL']:
+                    self.assertIsNotNone('ERROR',birth_before_marr_of_parents(kid, fam, people, families))
+
 if __name__ == '__main__':
     unittest.main()
 
