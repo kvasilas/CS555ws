@@ -945,4 +945,16 @@
 0 NOTE KV end
 0 NOTE RT start
 0 NOTE RT end
+0 NOTE duplicate ID here
+0 @I2JT71@ INDI
+1 NAME Bobby Smith
+1 SEX M
+1 BIRT
+2 DATE 19 Apr 2010
+0 @I2JT71@ INDI
+1 NAME Bobby Steven
+1 SEX M
+1 BIRT
+2 DATE 9 Apr 2010
+0 NOTE end duplicate ID here
 0 TRLR
