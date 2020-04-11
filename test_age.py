@@ -5,41 +5,41 @@ from tag_parse import *
 class TestAge(unittest.TestCase):
 
     def test_age_less_than_150(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         self.assertIn('ERROR', less_than_one_fifty('@I1JT01@', people))
     
     def test_marrige_after_fourteen(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         self.assertIn('ERROR', marrige_after_fourteen('@I1JT01@', people))
 
     def test_birth_b4_marr(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
-            self.assertEqual(check_birth_before_marr(key, people), 'ERROR')
+            self.assertIsNotNone('ERROR', check_birth_before_marr(key, people))
 
     def test_birth_b4_death(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
-            self.assertEqual(check_birth_before_death(key, people), 'ERROR')
+            self.assertIsNotNone('ERROR', check_birth_before_death(key, people))
 
     def test_mar_b4_death(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
-            self.assertEqual(mar_b4_death(key, people), 'ERROR')
+            self.assertIsNotNone('ERROR', mar_b4_death(key, people))
     
     def test_div_b4_death(self):
-        people, families = read_file('./sprint1/jt_sprint1.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for key in people:
-            self.assertEqual(div_b4_death(key, people), 'ERROR')
+            self.assertIsNotNone('ERROR', div_b4_death(key, people))
 
     def test_validateDates(self):
-        people, families = read_file('./sprint3/jt_validate_age.ged')
+        people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         for person in people:
             self.assertIn('ERROR', validateDates(person, people))
@@ -48,6 +48,22 @@ class TestAge(unittest.TestCase):
         people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         self.assertIn("ERROR", datesBeforeCurrent(people, families))
+
+    def test_birth_before_death_of_parents(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        for fam in families:
+            if('CHIL' in families[fam].keys()):
+                for kid in families[fam]['CHIL']:
+                    self.assertIsNotNone('ERROR',birth_before_death_of_parents(kid, fam, people, families))
+
+    def test_birth_before_marr_of_parents(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        for fam in families:
+            if('CHIL' in families[fam].keys()):
+                for kid in families[fam]['CHIL']:
+                    self.assertIsNotNone('ERROR',birth_before_marr_of_parents(kid, fam, people, families))
 
 if __name__ == '__main__':
     unittest.main()

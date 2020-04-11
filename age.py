@@ -4,7 +4,7 @@ import copy
 def calc_ages(people): #runs on whole dictionary
     today = datetime.now()
     for key in people:
-        err = validateDates(key, people) # check that the dates are valid
+        _ = validateDates(key, people) # check that the dates are valid
         # print(err)
         if('BIRT' in people[key].keys()):
             if(is_dead(key, people) == False):
@@ -20,10 +20,10 @@ def calc_ages(people): #runs on whole dictionary
                 people[key]['ALIVE'] = False
                 age = death_age(key, people)
                 people[key]['AGE'] = age
-                if(age < 0): #death before birth
-                    print("ERROR: Invalid death date, death before birth")
-                else:
-                    people[key]['AGE']= age
+                # if(age < 0): #death before birth
+                #     print("ERROR: Invalid death date, death before birth")
+                # else:
+                #     people[key]['AGE']= age
     return people
 
 def is_dead(key, people): #by person
@@ -73,20 +73,16 @@ def marr_and_div_ages(families, people): #runs on whole dictionary
     return(people)
 
 def check_birth_before_marr(key, people):
-    if(people[key]['MARR_AGE'] < 0):
-        people[key]['MARR_AGE'] = "INVALID"
-        return("ERROR: US02: "+people[key]["NAME"]+" Married before birth")
-    else:
-        return("Marrage date valid")
+    if('MARR_AGE' in people[key].keys()):
+        if(people[key]['MARR_AGE'] < 0):
+            return("ERROR: INDIVIDUAL: US02: "+people[key]["NAME"]+" Married before birth")
 
 def check_birth_before_death(key, people):
     if('BIRT' in people[key].keys()):
         if('Death' in people[key].keys()):
             if('AGE' in people[key].keys()):
                 if(people[key]['AGE'] < 0):
-                    return("ERROR: US03: "+people[key]["NAME"]+" Birth Before Death")
-                else:
-                    return(key+"PASS Birth Before Death")
+                    return("ERROR: INDIVIDUAL: US03: "+people[key]["NAME"]+" Birth Before Death")
 
 def store_ages(families, people):
     people = calc_ages(people)
@@ -101,8 +97,9 @@ def less_than_one_fifty(key, people):
         if(death_age(key, people) >= 150):
             return("ERROR: US07: DEATH AGE INVALID" + people[key]['ID'])
     if(is_dead(key, people) is False):
-        if(get_age(key, people) >= 150):
-            return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
+        if('AGE' in people[key].keys()):
+            if(get_age(key, people) >= 150):
+                return("ERROR: US07: CURRENT AGE INVALID" + people[key]['ID'])
     
 def marrige_after_fourteen(key, people):
     # Ticket US10 - Marriage should be at least 14 years after birth 
@@ -115,17 +112,14 @@ def marrige_after_fourteen(key, people):
 
 
 def mar_b4_death(key, people):
-    if(people[key]['MARR_AGE'] > people[key]['AGE']):
-        return "ERROR: INDIVIDUAL: US05 Person '{}' was married after their death".format(key)
-    else:
-        return ""
-
+    if('MARR_AGE' in people[key].keys() and 'AGE' in people[key].keys()):
+        if(people[key]['MARR_AGE'] > people[key]['AGE']):
+            return "ERROR: INDIVIDUAL: US05 Person '{}' was married after their death".format(key)
 
 def div_b4_death(key, people):
-    if(people[key]['DIV_AGE'] > people[key]['AGE']):
-        return "ERROR: INDIVIDUAL: US06 Person '{}' was divorced after their death ".format(key)
-    else:
-        return ""
+    if('DIV_AGE' in people[key].keys()):
+        if(people[key]['DIV_AGE'] > people[key]['AGE']):
+            return "ERROR: INDIVIDUAL: US06 Person '{}' was divorced after their death ".format(key)
 
 def convertFamiliesToDT(families):   # Converts each family date to datetime
     familiesDT = copy.deepcopy(families)
@@ -137,20 +131,26 @@ def convertFamiliesToDT(families):   # Converts each family date to datetime
     return familiesDT
 
 def datesBeforeCurrent(people, families):
+    output = []
     today = datetime.now()
     families_dict = convertFamiliesToDT(families)
     for person in people:
         if people[person].get('BIRT', today) > today:
-            return "ERROR: INDIVIDUAL: US01 {} has a birthday ({}) after today".format(person, people[person]['BIRT'])
+            output.append("ERROR: INDIVIDUAL: US01 {} has a birthday ({}) after today".format(person, people[person]['BIRT']))
         if "DEAT" in people[person]:
             if people[person]["DEAT"] > today:
-                return "ERROR: INDIVIDUAL: US01 {} has died ({}) after today".format(person, people[person]['DEAT'])
+                output.append("ERROR: INDIVIDUAL: US01 {} has died ({}) after today".format(person, people[person]['DEAT']))
     for family in families_dict:
         if families_dict[family].get('MARR', today) > today:
-            return "ERROR: FAMILY: US01 {} family has a marriage ({}) after today".format(family, families[family]['MARR'])
+            output.append("ERROR: FAMILY: US01 {} family has a marriage ({}) after today".format(family, families[family]['MARR']))
         if "DIV" in families_dict[family]:
             if families_dict[family]["DIV"] > today:
-                return "ERROR: FAMILY: US01 {} family has a divorce ({}) after today".format(family, families[family]['DIV'])
+                output.append("ERROR: FAMILY: US01 {} family has a divorce ({}) after today".format(family, families[family]['DIV']))
+    result = ""
+    for line in output[:-1]:
+        result += line + "\n"
+    result += output[-1]
+    return result
 
 def listRecentBirths(people):
     thirtyDaysAgo = datetime.now() - timedelta(30)
@@ -169,17 +169,32 @@ def validateDates(person, people):
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
             Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
-            return "ERROR"
+            return("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
     else:
         try:
             _ = datetime.strptime(people[person]['BIRT'], '%d %b %Y')
         except:
             Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: " + people[person]['ID'])
-            return "ERROR"
+            return("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
         try:
             _ = datetime.strptime(people[person]['DEAT'], '%d %b %Y')
         except:
             Warning("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Death Date for person: " + people[person]['ID'])
-            return "ERROR"
-    return "OK"
+            return("ERROR: PERSON: US42: Error parsing GEDCOM file - Invalid Birth Date for person: "+ people[person]['ID']) 
 
+def birth_before_marr_of_parents(kid,fam,people,families):
+    families = convertFamiliesToDT(families)
+    if('MARR' in families[fam].keys() and kid in people.keys() and people[kid]['BIRT'] - families[fam]['MARR'] < timedelta(days=0)):
+        return('ERROR: FAMILY: US08: '+kid+' Birth before Marriage')
+    elif('DIV' in families[fam].keys() and kid in people.keys() and people[kid]['BIRT'] - families[fam]['DIV'] > timedelta(days=90)):
+        return('ERROR: FAMILY: US08: '+kid+' Birth more than 9 months after divorce')
+    return
+
+def birth_before_death_of_parents(kid,fam,people,families):
+    if(is_dead(families[fam]['WIFE'], people) == True and kid in people.keys()):
+        if(people[kid]['BIRT'] - people[families[fam]['WIFE']]['DEAT'] > timedelta(days=0)):
+            return('ERROR: FAMILY: US09: '+kid+' Birth after death of Mother')
+    elif(is_dead(families[fam]['HUSB'], people) == True and kid in people.keys()):
+        if(people[kid]['BIRT'] - people[families[fam]['HUSB']]['DEAT'] > timedelta(days=90)):
+            return('ERROR: FAMILY: US09: '+kid+' Birth more than 9 months after death of Father')
+    return
