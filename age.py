@@ -198,3 +198,28 @@ def birth_before_death_of_parents(kid,fam,people,families):
         if(people[kid]['BIRT'] - people[families[fam]['HUSB']]['DEAT'] > timedelta(days=90)):
             return('ERROR: FAMILY: US09: '+kid+' Birth more than 9 months after death of Father')
     return
+
+
+def listRecentDeaths(people):
+    thirtyDaysAgo = datetime.now() - timedelta(30)
+    newly_dead = []
+    for person in people:
+        if('DEAT' in people[person].keys()):  
+            if people[person]['DEAT'] > thirtyDaysAgo:
+                newly_dead.append(people[person]['NAME'])
+            else:
+                continue
+    return newly_dead
+
+def listUpcomingBirthdays(people):
+    now = datetime.now()
+    thirtyDaysFuture =  now + timedelta(30)
+    upcoming_birthdays = []
+    for person in people:
+        if('BIRT' in people[person].keys()):  
+            birthday = people[person]['BIRT'].replace(now.year)
+            if birthday < thirtyDaysFuture:
+                upcoming_birthdays.append(people[person]['NAME'])
+            else:
+                continue
+    return upcoming_birthdays
