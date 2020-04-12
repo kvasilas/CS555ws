@@ -49,7 +49,10 @@ def read_file(path):
         if(status == True):
             if(tag == "INDI"):
                 curr_id = args
-                people[curr_id] = {}
+                if curr_id in people:
+                    people[curr_id]["isDuplicate"] = True
+                else:
+                    people[curr_id] = {}
                 people[curr_id]["ID"] = args
                 fam_flag = False
 
@@ -67,7 +70,10 @@ def read_file(path):
             if(tag == "FAM"):
                 curr_id = args
                 fam_flag = True
-                families[curr_id] = {}
+                if curr_id in families:
+                    families[curr_id]["isDuplicate"] = True
+                else:
+                    families[curr_id] = {}
                 families[curr_id]["ID"] = args
 
             if(tag in fam_date_tags):

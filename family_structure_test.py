@@ -9,12 +9,12 @@ class TestFamStruct(unittest.TestCase):
     def test_ListLivingMarried(self):
         people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
-        self.assertNotEqual(ListLivingMarried(people), [])
+        self.assertIn("Joe /Smith/", ListLivingMarried(people))
 
     def test_ListLivingSingle(self):
         people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
-        self.assertNotEqual(ListLivingSingle(people), [])
+        self.assertIn('Antonio Brown', ListLivingSingle(people))
 
     def test_fiveLessBirths(self):
         people, families = read_file('./test_case.ged')

@@ -38,12 +38,6 @@ class TestAge(unittest.TestCase):
         for key in people:
             self.assertIsNotNone('ERROR', div_b4_death(key, people))
 
-    def test_validateDates(self):
-        people, families = read_file('./test_case.ged')
-        people = store_ages(families, people)
-        for person in people:
-            self.assertIn('ERROR', validateDates(person, people))
-
     def test_datesBeforeCurrent(self):
         people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
@@ -69,6 +63,16 @@ class TestAge(unittest.TestCase):
         people, families = read_file('./test_case.ged')
         people = store_ages(families, people)
         self.assertIn("@I2JS02@", listRecentSurvivors(people, families))
+
+    def test_listRecentBirths(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn('Baby /Person/', listRecentBirths(people))
+
+    def test_ValidateDates(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn('ERROR', validateDates('@I3JT95@', people))
 
 if __name__ == '__main__':
     unittest.main()

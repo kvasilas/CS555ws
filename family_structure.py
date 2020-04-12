@@ -134,25 +134,44 @@ def getMotherChildren(families):
     return mothers
 
 def uniqueIndividualIDs(people):
-    bv = defaultdict(int)
-    for individual in people:
-        #print(people[individual]['ID'])
-        bv[people[individual]['ID']] += 1 
-    for i in bv:
-        if bv[i] > 1:
-            return ("ERROR: INDIVIDUAL: US22: ID is not unique " + i)
-    return "All Individual ID's are unique"
+    list_ids = []
+    for person in people:
+        if "isDuplicate" in people[person]:
+            list_ids.append(person)
+    if list_ids:
+        return "ERROR: INDIVIDUAL: US22: THe following individual IDs are not unique - {}".format(list_ids)
+    else:
+        return True
+
+    # bv = defaultdict(int)
+    # for individual in people:
+    #     #print(people[individual]['ID'])
+    #     bv[people[individual]['ID']] += 1
+    # for i in bv:
+    #     if bv[i] > 1:
+    #         return ("ERROR: INDIVIDUAL: US22: ID is not unique " + i)
+    # return "All Individual ID's are unique"
 
 
 def uniqueFamilyIDs(families):
-    bv = defaultdict(int)
+    list_ids = []
     for family in families:
-        #print(families[family]['ID'])
-        bv[families[family]['ID']] += 1 
-    for i in bv:
-        if bv[i] > 1:
-            return ("ERROR: FAMILIY: US22: Family ID is not unique " + i)
-    return "All Family ID's are unique"
+        if "isDuplicate" in families[family]:
+            list_ids.append(family)
+    if list_ids:
+        return "ERROR: FAMILY: US22: The following family IDs are not unique - {}".format(list_ids)
+    else:
+        return True
+
+
+    # bv = defaultdict(int)
+    # for family in families:
+    #     #print(families[family]['ID'])
+    #     bv[families[family]['ID']] += 1
+    # for i in bv:
+    #     if bv[i] > 1:
+    #         return ("ERROR: FAMILIY: US22: Family ID is not unique " + i)
+    # return "All Family ID's are unique"
 
 def listDeceased(people):
     dead_people = {}
