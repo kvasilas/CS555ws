@@ -223,3 +223,38 @@ def listUpcomingBirthdays(people):
             else:
                 continue
     return upcoming_birthdays
+
+
+def listRecentSurvivors(people, families):
+    output = []
+    today = datetime.now()
+    for fam_id in families:
+        family_list = []
+        husb_id = families[fam_id].get("HUSB", None)
+        wife_id = families[fam_id].get("WIFE", None)
+        husb_recent = False
+        if "DEAT" in people.get(husb_id, []):
+            death_date = people[husb_id]['DEAT']
+            # print(death_date)
+            # datetime_death = datetime.strptime(death_date, '%d %b %Y')
+            if death_date > today - timedelta(days=30):
+                husb_recent = True
+                family_list.append(families[fam_id].get("WIFE", None))
+                children = families[fam_id].get('CHIL', None)
+                for child in children:
+                    family_list.append(child)
+
+        if "DEAT" in people.get(wife_id, []):
+            death_date = people[wife_id]['DEAT']
+            # datetime_death = datetime.strptime(death_date, '%d %b %Y')
+            if death_date > today - timedelta(days=30):
+                family_list.append(families[fam_id].get("HUSB", None))
+                if husb_recent == False:
+                    children = families[fam_id].get('CHIL', None)
+                    for child in children:
+                        family_list.append(child)
+        for survivor in family_list:
+            output.append(survivor)
+    return output
+
+
