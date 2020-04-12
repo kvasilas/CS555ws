@@ -329,3 +329,47 @@ def ListLivingSingle(people):
                     alive_single_list.append(people[key]['NAME'])
     return('US31: List Living Single:',alive_single_list)
 
+
+def uniqueNameBirth(people):
+    errors = []
+    errordict = {}
+    for key in people:
+        if (('NAME' in people[key]) and ('BIRT' in people[key])):
+            namebirth = people[key]['NAME'] + " " + str(people[key]['BIRT'])
+            for key2 in people:
+                if(key != key2):
+                    if (('NAME' in people[key2]) and ('BIRT' in people[key2])):
+                        if (people[key2]['NAME'] + " " + str(people[key2]['BIRT']) == namebirth):
+                            if (namebirth in errordict):
+                                if (key not in errordict[namebirth]):
+                                    errordict[namebirth].append(key)
+                                if (key2 not in errordict[namebirth]):
+                                    errordict[namebirth].append(key2)
+                            else:
+                                errordict[namebirth] = [key, key2]
+    if(errordict == {}):
+        return True
+    else:
+        for x in errordict:
+            s = ""
+            for y in errordict[x]:
+                if (s == ""):
+                    s = y
+                else:
+                    s = s + ", " + y
+            errors.append("ERROR: INDIVIDUAL: US23: Individuals have the same name and birthday: " + s + ": " + x)
+        return errors
+
+
+def divorceBeforeMarriage(families):
+    errors = []
+    for fam in families:
+        if ('DIV' in families[fam] and 'MARR' in families[fam]):
+            if (datetime.strptime(families[fam]['DIV'], '%d %b %Y') <= datetime.strptime(families[fam]['MARR'], '%d %b %Y')):
+                errors.append("ERROR: Family: US04: " + fam + ": Divorce date is before marriage date.")
+        elif ('DIV' in families[fam] and 'MARR' not in families[fam]):
+                errors.append("ERROR: Family: US04: " + fam + ": Divorce cannot happen without existing marriage.")
+    if(errors != []):
+        return errors
+    else:
+        return True

@@ -68,6 +68,16 @@ class TestFamStruct(unittest.TestCase):
         people = store_ages(families, people)
         self.assertNotEqual(True, male_last_names_align(people, families))
 
+    def test_uniqueNameBirth(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(True, uniqueNameBirth(people))
+    
+    def test_divorceBeforeMarriage(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertNotEqual(True, divorceBeforeMarriage(families))
+
 if __name__ == '__main__':
     unittest.main()
 
