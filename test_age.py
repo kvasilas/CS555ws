@@ -65,6 +65,11 @@ class TestAge(unittest.TestCase):
                 for kid in families[fam]['CHIL']:
                     self.assertIsNotNone('ERROR',birth_before_marr_of_parents(kid, fam, people, families))
 
+    def test_listRecentSurvivors(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn("@I2JS02@", listRecentSurvivors(people, families))
+
 if __name__ == '__main__':
     unittest.main()
 

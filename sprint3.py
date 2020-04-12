@@ -112,9 +112,9 @@ print("\nUser Story Demonstrations:")
 # Sprint 2
 print(family_structure.uniqueIndividualIDs(people))
 print(family_structure.uniqueFamilyIDs(families))
-print("List of deceased people: ", family_structure.listDeceased(people))
+print("US29: List of deceased people: ", family_structure.listDeceased(people))
 # Sprint 3
-print("List of recent births: ", age.listRecentBirths(people))
+print("US35: List of recent births: ", age.listRecentBirths(people))
 #KV User Stories
 ##sprint 3
 #US30
@@ -123,6 +123,7 @@ print(resp, val, sep=' ')
 #US31
 resp, val = family_structure.ListLivingSingle(people)
 print(resp, val, sep=' ')
+
 
 
 

@@ -330,6 +330,35 @@ def ListLivingSingle(people):
     return('US31: List Living Single:',alive_single_list)
 
 
+def listSameBirth(people, families):
+    output_lines = []
+    for family in families:
+        has_same = False
+        unique_birthdays = {}
+        for child in families[family].get('CHIL', []):
+            if child not in people:
+                continue
+            if 'BIRT' not in people[child]:
+                continue
+            birthdate = people[child]['BIRT']
+            if birthdate in unique_birthdays:
+                unique_birthdays[birthdate].append(child)
+                has_same = True
+            else:
+                unique_birthdays[birthdate] = [child]
+        if has_same:
+            line = "Family: {} has these members with multiple births: ".format(family)
+            for birthday in unique_birthdays:
+                if len(unique_birthdays[birthday]) > 1:
+                    line += "({}): {}".format(birthday.strftime("%m %d %Y"), unique_birthdays[birthday])
+            output_lines.append(line)
+    result = ""
+    for line in output_lines[:-1]:
+        result += line + "\n"
+    result += output_lines[-1]
+    return result
+
+
 def uniqueNameBirth(people):
     errors = []
     errordict = {}
