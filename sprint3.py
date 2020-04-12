@@ -41,6 +41,11 @@ for x in family_structure.noCousinMarriage(families):
     print(x)
 for x in family_structure.noNieceNephewMarriage(families):
     print(x)
+#Sprint 4
+for x in family_structure.uniqueNameBirth(people):
+    print(x)
+for x in family_structure.divorceBeforeMarriage(families):
+    print(x)
 
 
 # JT User Stories
@@ -150,7 +155,6 @@ print(resp, val, sep=' ')
 
 
 
-###Old stuff###
 
 # #KV User Stories
 # #US30 -List living married
