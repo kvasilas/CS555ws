@@ -438,8 +438,17 @@
 2 SURN Person
 2 _MARNM Person
 1 SEX M
+0 @I3JT03@ INDI
+1 NAME Mother /Baby/
+2 GIVN Mother
+2 SURN Baby
+2 _MARNM Baby
+1 SEX F
+1 BIRT
+2 DATE 7 FEB 1978
+1 FAMS @F3JT01@
 0 NOTE JT end here
-0 NOTE KV start here
+0 NOTE KV start here #########################################################################################
 0 @I1KV01@ INDI
 1 NAME Alex /Alexman/
 1 SEX M
