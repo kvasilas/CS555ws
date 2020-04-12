@@ -68,6 +68,10 @@ for person in people:
    x = age.validateDates(person, people)
    if (x != None):
        print(x)
+for family in families:
+    x = age.validateDates(family, families)
+    if x:
+        print(x)
 
 
 # KV User Stories
@@ -107,16 +111,18 @@ for fam in families:
             x = age.birth_before_death_of_parents(kid, fam, people, families)
             if(x):
                 print(x)
-
+print(family_structure.uniqueIndividualIDs(people))
+print(family_structure.uniqueFamilyIDs(families))
 
 
 ####Information User story demonstrations###
 print("\nUser Story Demonstrations:")
 
+#Sprint 4 here
+print("US37: List Recent Survivors: ", age.listRecentSurvivors(people, families))
+print("US32: List Multiple Births:\n{}".format(family_structure.listSameBirth(people, families)))
 # JT User Stories
 # Sprint 2
-print(family_structure.uniqueIndividualIDs(people))
-print(family_structure.uniqueFamilyIDs(families))
 print("US29: List of deceased people: ", family_structure.listDeceased(people))
 # Sprint 3
 print("US35: List of recent births: ", age.listRecentBirths(people))

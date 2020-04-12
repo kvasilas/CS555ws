@@ -447,6 +447,11 @@
 1 BIRT
 2 DATE 7 FEB 1978
 1 FAMS @F3JT01@
+0 @I3JT95@ INDI
+1 NAME John /Slaws/
+1 SEX M
+1 BIRT
+2 DATE 77 FEB 1978
 0 NOTE JT end here
 0 NOTE KV start here #########################################################################################
 0 @I1KV01@ INDI
