@@ -366,9 +366,9 @@ def divorceBeforeMarriage(families):
     for fam in families:
         if ('DIV' in families[fam] and 'MARR' in families[fam]):
             if (datetime.strptime(families[fam]['DIV'], '%d %b %Y') <= datetime.strptime(families[fam]['MARR'], '%d %b %Y')):
-                errors.append("ERROR: Family: US04: " + fam + ": Divorce date is before marriage date.")
+                errors.append("ERROR: FAMILY: US04: " + fam + ": Divorce date is before marriage date.")
         elif ('DIV' in families[fam] and 'MARR' not in families[fam]):
-                errors.append("ERROR: Family: US04: " + fam + ": Divorce cannot happen without existing marriage.")
+                errors.append("ERROR: FAMILY: US04: " + fam + ": Divorce cannot happen without existing marriage.")
     if(errors != []):
         return errors
     else:
