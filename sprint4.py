@@ -124,7 +124,6 @@ print("\nUser Story Demonstrations:")
 #Sprint 4 here
 print("US37: List Recent Survivors: ", age.listRecentSurvivors(people, families))
 print("US32: List Multiple Births:\n{}".format(family_structure.listSameBirth(people, families)))
-
 print("US36: List recent deaths: ", age.listRecentDeaths(people))
 print("US38: List upcoming birthdays: ", age.listUpcomingBirthdays(people))
 
