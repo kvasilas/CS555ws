@@ -12,6 +12,7 @@ print_tables(families, people)
 
 ####Error Message Prints###
 print("\nGEDCOM File Errors:")
+
 # Put Sprint 4 at top
 for x in family_structure.uniqueNameBirth(people):
     print(x)
@@ -114,6 +115,21 @@ for key in people:
     if (x != None):
        print(x)
 
+# #US08
+# for fam in families:
+#     if('CHIL' in families[fam].keys()):
+#         for kid in families[fam]['CHIL']:
+#             x = age.birth_before_marr_of_parents(kid, fam, people, families)
+#             if(x):
+#                 print(x)
+# #US09
+# for fam in families:
+#     if('CHIL' in families[fam].keys()):
+#         for kid in families[fam]['CHIL']:
+#             x = age.birth_before_death_of_parents(kid, fam, people, families)
+#             if(x):
+#                 print(x)
+
 print(family_structure.uniqueIndividualIDs(people))
 print(family_structure.uniqueFamilyIDs(families))
 
@@ -124,7 +140,6 @@ print("\nUser Story Demonstrations:")
 #Sprint 4 here
 print("US37: List Recent Survivors: ", age.listRecentSurvivors(people, families))
 print("US32: List Multiple Births:\n{}".format(family_structure.listSameBirth(people, families)))
-
 print("US36: List recent deaths: ", age.listRecentDeaths(people))
 print("US38: List upcoming birthdays: ", age.listUpcomingBirthdays(people))
 
