@@ -335,7 +335,7 @@ def ListLivingMarried(people):
         if not age.is_dead(key, people):  # is alive?
             if 'MARR_AGE' in people[key].keys() and 'DIV_AGE' not in people[key].keys():
                 alive_married_list.append(people[key]['NAME'])
-    return 'US30: List Living Married: {}'.format(alive_married_list)
+    return ('US30: List Living Married:', alive_married_list)
 
 
 def ListLivingSingle(people):
@@ -346,7 +346,7 @@ def ListLivingSingle(people):
             if('MARR_AGE' not in people[key].keys() and 'AGE' in people[key].keys()):
                 if(people[key]['AGE'] >= 30):
                     alive_single_list.append(people[key]['NAME'])
-    return 'US31: List Living Single: {}'.format(alive_single_list)
+    return ('US31: List Living Single:', alive_single_list)
 
 
 def listSameBirth(people, families):
