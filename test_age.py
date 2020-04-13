@@ -74,6 +74,16 @@ class TestAge(unittest.TestCase):
         people = store_ages(families, people)
         self.assertIn('ERROR', validateDates('@I3JT95@', people))
 
+    def test_listRecentDeaths(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn('John /Don/', listRecentDeaths(people))
+
+    def test_listUpcomingBirthdays(self):
+        people, families = read_file('./test_case.ged')
+        people = store_ages(families, people)
+        self.assertIn('Will /Donovan/', listUpcomingBirthdays(people))
+
 if __name__ == '__main__':
     unittest.main()
 

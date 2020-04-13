@@ -251,13 +251,28 @@ def listRecentDeaths(people):
     return newly_dead
 
 def listUpcomingBirthdays(people):
+    # now = datetime.now()
+    # thirtyDaysFuture =  now + timedelta(30)
+    # upcoming_birthdays = []
+    # for person in people:
+    #     if('BIRT' in people[person].keys()):
+    #         birthday = people[person]['BIRT'].replace(now.year)
+    #         if birthday < thirtyDaysFuture:
+    #             upcoming_birthdays.append(people[person]['NAME'])
+    #         else:
+    #             continue
+    # return upcoming_birthdays
+
     now = datetime.now()
     thirtyDaysFuture =  now + timedelta(30)
     upcoming_birthdays = []
     for person in people:
-        if('BIRT' in people[person].keys()):  
-            birthday = people[person]['BIRT'].replace(now.year)
-            if birthday < thirtyDaysFuture:
+        if('BIRT' in people[person].keys()):
+            birthday = people[person]['BIRT']
+            if isinstance(birthday, str):
+                continue
+            current_bd = datetime(now.year, birthday.month, birthday.day)
+            if current_bd < thirtyDaysFuture:
                 upcoming_birthdays.append(people[person]['NAME'])
             else:
                 continue
